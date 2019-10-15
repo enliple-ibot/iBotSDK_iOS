@@ -22,7 +22,7 @@ pod 'iBotSDK'
 
 ## Author
 
-DongHoon, dhlee@enliple.com
+Enliple, ibot@enliple.com
 
 ## License
 
