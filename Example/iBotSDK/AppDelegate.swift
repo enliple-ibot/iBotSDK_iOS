@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  iBotSDK
 //
-//  Created by DongHoon on 10/15/2019.
-//  Copyright (c) 2019 DongHoon. All rights reserved.
+//  Created by Enliple on 10/15/2019.
+//  Copyright (c) 2019 Enliple. All rights reserved.
 //
 
 import UIKit
