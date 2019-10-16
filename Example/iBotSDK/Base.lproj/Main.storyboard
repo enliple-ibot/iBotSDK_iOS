@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,11 +18,59 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MlC-eN-J8i">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences" javaScriptCanOpenWindowsAutomatically="YES"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocl-Fb-XTT" customClass="DHChatBotButton" customModule="iBotSDK">
+                                <rect key="frame" x="315" y="60" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="4L9-Kc-3cv"/>
+                                    <constraint firstAttribute="width" constant="50" id="WZF-dr-5gv"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqc-Ec-8f9" customClass="DHChatBotButton" customModule="iBotSDK">
+                                <rect key="frame" x="10" y="120" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="PjN-om-vJT"/>
+                                    <constraint firstAttribute="width" constant="50" id="fGU-Zq-Mif"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anr-PV-DOS" customClass="DHChatBotButton" customModule="iBotSDK">
+                                <rect key="frame" x="345" y="210" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="OKa-nI-ND7"/>
+                                    <constraint firstAttribute="width" constant="20" id="o24-z2-y5d"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="MlC-eN-J8i" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0U7-QL-00O"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="MlC-eN-J8i" secondAttribute="bottom" id="5Do-LN-3hL"/>
+                            <constraint firstItem="MlC-eN-J8i" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="6P3-OI-kQ2"/>
+                            <constraint firstItem="anr-PV-DOS" firstAttribute="top" secondItem="ocl-Fb-XTT" secondAttribute="bottom" constant="100" id="GqW-u3-59o"/>
+                            <constraint firstAttribute="trailing" secondItem="ocl-Fb-XTT" secondAttribute="trailing" constant="10" id="JkJ-gH-jAq"/>
+                            <constraint firstAttribute="trailing" secondItem="MlC-eN-J8i" secondAttribute="trailing" id="O2z-Gh-DAa"/>
+                            <constraint firstAttribute="trailing" secondItem="anr-PV-DOS" secondAttribute="trailing" constant="10" id="O99-bI-Ee9"/>
+                            <constraint firstItem="oqc-Ec-8f9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="RUA-Zl-4Eg"/>
+                            <constraint firstItem="oqc-Ec-8f9" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="120" id="YzL-b0-9GS"/>
+                            <constraint firstItem="ocl-Fb-XTT" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="60" id="jon-GI-xzA"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chatbotButton" destination="ocl-Fb-XTT" id="lpe-WL-4bw"/>
+                        <outlet property="wkWebView" destination="MlC-eN-J8i" id="dzW-Jq-1IE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-585" y="147"/>
         </scene>
     </scenes>
 </document>

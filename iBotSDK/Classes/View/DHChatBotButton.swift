@@ -100,7 +100,7 @@ public class DHChatBotButton: UIView {
         floatButtonView.layer.borderWidth = 1.0
         
         loadDefaultImage()
-        if let _ = buttonImage {
+        if buttonImage != nil && buttonImage!.size != .zero {
             floatButtonView.image = buttonImage
             floatButtonView.contentMode = .scaleAspectFit
         } 
@@ -122,7 +122,7 @@ public class DHChatBotButton: UIView {
     }
     
     func loadDefaultImage() {
-        if buttonImage == nil {
+        if buttonImage == nil || buttonImage!.size == .zero {
             buttonImage = UIImage.init(named: "showbot_icon", in: Bundle(for: DHWebViewController.self), compatibleWith: nil)
         }
     }
