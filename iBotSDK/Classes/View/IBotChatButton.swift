@@ -1,18 +1,18 @@
 //
-//  DHChatBotButton.swift
+//  IBotChatButton.swift
 //
-//  Created by enliple on 26/09/2019.
+//  Created by Enliple on 26/09/2019.
 //
 
 import UIKit
 
 @IBDesignable
-public class DHChatBotButton: UIView {
+public class IBotChatButton: UIView {
     
-    @IBInspectable public var showingUrl:String = ""
     @IBInspectable public var expandableViewShowing:Bool = true
     @IBInspectable public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 114, g: 71, b: 199)
     @IBInspectable public var buttonImage:UIImage? = nil
+    @IBInspectable public var buttonBorderColor:UIColor = UIColor.init(r: 111, g: 88, b: 182)
     
     private var floatButtonView: UIImageView = UIImageView.init(frame: .zero)
     private var subMessageView: UIView = UIView.init(frame: .zero)
@@ -95,8 +95,7 @@ public class DHChatBotButton: UIView {
         floatButtonView.backgroundColor = UIColor.init(r: 121, g: 98, b: 162)
         floatButtonView.layer.masksToBounds = true
         floatButtonView.layer.cornerRadius = (self.bounds.height < self.bounds.width ? self.bounds.height : self.bounds.width) / 2.0
-//        floatButtonView.layer.borderColor = UIColor.init(r: 111, g: 88, b: 182).cgColor
-        floatButtonView.layer.borderColor = UIColor.white.cgColor
+        floatButtonView.layer.borderColor = buttonBorderColor.cgColor
         floatButtonView.layer.borderWidth = 1.0
         
         loadDefaultImage()
@@ -123,7 +122,7 @@ public class DHChatBotButton: UIView {
     
     func loadDefaultImage() {
         if buttonImage == nil || buttonImage!.size == .zero {
-            buttonImage = UIImage.init(named: "showbot_icon", in: Bundle(for: DHWebViewController.self), compatibleWith: nil)
+            buttonImage = UIImage.init(named: "showbot_icon", in: Bundle(for: IBWebViewController.self), compatibleWith: nil)
         }
     }
     
@@ -149,16 +148,13 @@ public class DHChatBotButton: UIView {
         if gesture.view == floatButtonView {
             if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
                 
-                if showingUrl.isEmpty {
-                    showingUrl = "https://bot.istore.camp/index.html?mallId=1"
-                }
-                
+                var showingUrl = IBotSDK.shared.getChatBotUrl() ?? ""
                 
                 if rootViewController is UINavigationController {
-                    DHViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: true)
+                    IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: true)
                 }
                 else {
-                    DHViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl)
+                    IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl)
                 }
             }
         }

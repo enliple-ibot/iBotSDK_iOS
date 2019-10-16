@@ -1,14 +1,14 @@
 //
-//  DHWebViewController.swift
-//  HoonLib
+//  IBWebViewController.swift
+//  iBotSDK
 //
-//  Created by enliple on 17/09/2019.
+//  Created by Enliple on 17/09/2019.
 //
 
 import UIKit
 import WebKit
 
-class DHWebViewController: UIViewController {
+class IBWebViewController: UIViewController {
 
     deinit {
     }
@@ -18,7 +18,7 @@ class DHWebViewController: UIViewController {
     }
     
     public init() {
-        super.init(nibName: "DHWebViewController", bundle: Bundle(for: DHWebViewController.self))
+        super.init(nibName: "IBWebViewController", bundle: Bundle(for: IBWebViewController.self))
     }
     
     @objc convenience public init(url:String) {

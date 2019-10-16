@@ -20,6 +20,15 @@ it, simply add the following line to your Podfile:
 pod 'iBotSDK'
 ```
 
+## Example
+### init
+```ruby
+iBotSDK.shard.setUp(apiKey: 'Your APIKey')
+```
+
+### Using IBotChatButton
+Just Add IBotChatButton in StoryBoard or XIB
+
 ## Author
 
 Enliple, ibot@enliple.com

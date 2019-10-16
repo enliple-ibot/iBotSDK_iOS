@@ -1,7 +1,7 @@
 //
-//  DHNavigationViewController.swift
+//  IBNavigationViewController.swift
 //
-//  Created by showthat on 17/09/2019.
+//  Created by Enliple on 17/09/2019.
 //
 
 extension UINavigationController {

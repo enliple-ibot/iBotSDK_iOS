@@ -14,7 +14,7 @@ import iBotSDK
 class ViewController: UIViewController {
 
     @IBOutlet weak var wkWebView: WKWebView!
-    @IBOutlet weak var chatbotButton: DHChatBotButton!
+    @IBOutlet weak var chatbotButton: IBotChatButton!
     
     
     let subWebView = WKWebView()
@@ -25,6 +25,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        IBotSDK.shared.setUp(apiKey: "1")
         
         wkWebView.enableConsoleLog()
         wkWebView.customUserAgent = "android"
@@ -59,9 +61,6 @@ class ViewController: UIViewController {
 //        label.textAlignment = .left
 //        label.font = UIFont.systemFont(ofSize: 20.0, weight: .medium)
 //        self.view.addSubview(label)
-        
-        
-        chatbotButton.showingUrl = "https://bot.istore.camp/index.html?mallId=1" 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,12 +69,6 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-    }
-    
-
-    @IBAction func showButtonClicked(_ sender: Any) {
-//        checkWebKitInnerHeight()
-//        DHViewControllerPresenter.shared.showWebViewController(parent: self, url: "https://bot.istore.camp/index.html?origin=http%3A%2F%2Fm.superbeeracing.com&referer=http%3A%2F%2Fm.superbeeracing.com%2F&mallId=8")
     }
     
     
