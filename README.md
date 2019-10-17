@@ -10,6 +10,8 @@
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+* iOS 11.0+
+* Xcode 11 (Swift 4.0)
 
 ## Installation
 
@@ -20,18 +22,25 @@ it, simply add the following line to your Podfile:
 pod 'iBotSDK'
 ```
 
-## Example
+## Usage
 ### init
-```ruby
+```swift
+import iBotSDK
+
 iBotSDK.shard.setUp(apiKey: 'Your APIKey')
 ```
 
-### Using IBotChatButton
-Just Add IBotChatButton in StoryBoard or XIB
+### Add IBotChatButton 
+```swift
+IBotSDK.shared.showIBotButton(in: self.view)
+```
+Or just Add IBotChatButton in StoryBoard or XIB
+
 
 ## Author
 
 Enliple, ibot@enliple.com
+
 
 ## License
 

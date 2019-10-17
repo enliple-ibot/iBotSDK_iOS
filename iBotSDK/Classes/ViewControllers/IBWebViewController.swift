@@ -10,6 +10,10 @@ import WebKit
 
 class IBWebViewController: UIViewController {
 
+    private let jsHandlerName:String = "iBotAppHandler"
+    private let jsMethodClose:String = "onAppViewClose"
+    
+    
     deinit {
     }
     
@@ -32,6 +36,11 @@ class IBWebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        let userContentController:WKUserContentController = WKUserContentController()
+        userContentController.add(self, name: jsHandlerName)
+        wkWebView.configuration.userContentController = userContentController
+        
         if let url = URL.init(string: loadUrl) {
             wkWebView.load(URLRequest.init(url: url))
         }
@@ -42,4 +51,18 @@ class IBWebViewController: UIViewController {
         self.hlDismiss()
     }
     
+}
+
+
+extension IBWebViewController: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == jsHandlerName {
+            let messageBody = message.body as! String
+            print("message body : \(messageBody)")
+            
+            if message.body as! String == jsMethodClose {
+                self.hlDismiss()
+            }
+        }
+    }
 }

@@ -34,32 +34,14 @@
                                     <constraint firstAttribute="width" constant="50" id="WZF-dr-5gv"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqc-Ec-8f9" customClass="IBotChatButton" customModule="iBotSDK">
-                                <rect key="frame" x="10" y="120" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="PjN-om-vJT"/>
-                                    <constraint firstAttribute="width" constant="50" id="fGU-Zq-Mif"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anr-PV-DOS" customClass="IBotChatButton" customModule="iBotSDK">
-                                <rect key="frame" x="345" y="210" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="OKa-nI-ND7"/>
-                                    <constraint firstAttribute="width" constant="20" id="o24-z2-y5d"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="MlC-eN-J8i" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0U7-QL-00O"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="MlC-eN-J8i" secondAttribute="bottom" id="5Do-LN-3hL"/>
                             <constraint firstItem="MlC-eN-J8i" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="6P3-OI-kQ2"/>
-                            <constraint firstItem="anr-PV-DOS" firstAttribute="top" secondItem="ocl-Fb-XTT" secondAttribute="bottom" constant="100" id="GqW-u3-59o"/>
                             <constraint firstAttribute="trailing" secondItem="ocl-Fb-XTT" secondAttribute="trailing" constant="10" id="JkJ-gH-jAq"/>
                             <constraint firstAttribute="trailing" secondItem="MlC-eN-J8i" secondAttribute="trailing" id="O2z-Gh-DAa"/>
-                            <constraint firstAttribute="trailing" secondItem="anr-PV-DOS" secondAttribute="trailing" constant="10" id="O99-bI-Ee9"/>
-                            <constraint firstItem="oqc-Ec-8f9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="RUA-Zl-4Eg"/>
-                            <constraint firstItem="oqc-Ec-8f9" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="120" id="YzL-b0-9GS"/>
                             <constraint firstItem="ocl-Fb-XTT" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="60" id="jon-GI-xzA"/>
                         </constraints>
                     </view>

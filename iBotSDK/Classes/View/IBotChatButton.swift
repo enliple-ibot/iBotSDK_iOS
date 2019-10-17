@@ -9,10 +9,52 @@ import UIKit
 @IBDesignable
 public class IBotChatButton: UIView {
     
-    @IBInspectable public var expandableViewShowing:Bool = true
-    @IBInspectable public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 114, g: 71, b: 199)
-    @IBInspectable public var buttonImage:UIImage? = nil
-    @IBInspectable public var buttonBorderColor:UIColor = UIColor.init(r: 111, g: 88, b: 182)
+    @IBInspectable public var expandableViewShowing:Bool = true {
+        didSet {
+            isAnimated = !expandableViewShowing
+        }
+    }
+    
+    
+    @IBInspectable public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 114, g: 71, b: 199) {
+        didSet {
+            subMessageView.backgroundColor = expandableViewBackgroundColor
+        }
+    }
+    
+    
+    @IBInspectable public var buttonImage:UIImage? = nil {
+        didSet {
+            if let _ = buttonImage {
+                floatButtonView.image = buttonImage
+                floatButtonView.contentMode = .scaleAspectFit
+            }
+        }
+    }
+    
+    
+    @IBInspectable public var buttonBorderColor:UIColor = UIColor.init(r: 111, g: 88, b: 182) {
+        didSet {
+            floatButtonView.layer.borderColor = buttonBorderColor.cgColor
+        }
+    }
+    
+    
+    var isShowing:Bool = true {
+        didSet {
+            self.isHidden = !isShowing
+        }
+    }
+    
+    override public var isHidden: Bool {
+        didSet {
+            if !isShowing && isHidden == false {
+                self.isHidden = true
+            }
+        }
+    }
+    
+    
     
     private var floatButtonView: UIImageView = UIImageView.init(frame: .zero)
     private var subMessageView: UIView = UIView.init(frame: .zero)
