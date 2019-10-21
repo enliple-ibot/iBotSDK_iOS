@@ -116,6 +116,9 @@ public class IBotChatButton: UIView {
     
     public override func didMoveToWindow() {
         super.didMoveToWindow()
+        
+        let isHide = isHidden
+        self.isHidden = isHide
     }
     
     func commonInit() {
@@ -154,9 +157,9 @@ public class IBotChatButton: UIView {
         closeButton.backgroundColor = .clear
         closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
         
-        messageLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .medium)
+        messageLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
         messageLabel.textColor = .white
-        messageLabel.text = "아이봇 샘플 메세지 입니다."
+        messageLabel.text = "반가워요~ 인공지능 상담봇 입니다."
         
         subMessageView.addSubview(messageLabel)
         subMessageView.addSubview(closeButton)
@@ -190,14 +193,20 @@ public class IBotChatButton: UIView {
         if gesture.view == floatButtonView {
             if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
                 
-                var showingUrl = IBotSDK.shared.getChatBotUrl() ?? ""
+                IBApi.shared.checkIbotAlive(mallId: IBotSDK.shared.apiKey) { (result, error) in
+                    if let json = result, (json["result"] as! String).uppercased() == "TRUE" {
+                        
+                        let showingUrl = IBotSDK.shared.getChatBotUrl() ?? ""
+                        
+                        if rootViewController is UINavigationController {
+                            IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: true)
+                        }
+                        else {
+                            IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl)
+                        }
+                    }
+                }
                 
-                if rootViewController is UINavigationController {
-                    IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: true)
-                }
-                else {
-                    IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl)
-                }
             }
         }
     }

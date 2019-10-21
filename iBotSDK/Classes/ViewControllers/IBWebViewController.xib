@@ -19,37 +19,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XvV-hd-g4Q">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
-                    <color key="backgroundColor" red="0.3411764706" green="0.4549019608" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="dAf-pG-Hn5"/>
-                    </constraints>
-                    <state key="normal" title="뒤로">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="clickedBackButton:" destination="-1" eventType="touchUpInside" id="Q9a-sx-j5g"/>
-                    </connections>
-                </button>
                 <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBH-cO-LD0">
-                    <rect key="frame" x="0.0" y="45" width="375" height="622"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <wkWebViewConfiguration key="configuration">
                         <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                        <wkPreferences key="preferences"/>
+                        <wkPreferences key="preferences" javaScriptCanOpenWindowsAutomatically="YES"/>
                     </wkWebViewConfiguration>
                 </wkWebView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XvV-hd-g4Q" secondAttribute="trailing" id="TFo-ux-csO"/>
-                <constraint firstItem="XvV-hd-g4Q" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZOF-Bl-4u0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="TBH-cO-LD0" secondAttribute="bottom" id="ZeA-e1-HNl"/>
                 <constraint firstItem="TBH-cO-LD0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="iXJ-f7-ySc"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TBH-cO-LD0" secondAttribute="trailing" id="neJ-ET-ebl"/>
-                <constraint firstItem="XvV-hd-g4Q" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pz1-eq-vZW"/>
-                <constraint firstItem="TBH-cO-LD0" firstAttribute="top" secondItem="XvV-hd-g4Q" secondAttribute="bottom" id="tTy-he-HTQ"/>
+                <constraint firstItem="TBH-cO-LD0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="owg-c2-xI2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="-366" y="-222"/>

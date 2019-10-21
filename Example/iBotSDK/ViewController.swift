@@ -25,13 +25,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let siteUrl:String = "https://mobon.net/main/m2/"
+        
 
         if let url = URL(string: siteUrl) {
             wkWebView.load(URLRequest.init(url: url))
         }
         
         
-        IBotSDK.shared.setUp(apiKey: "1")
+        IBotSDK.shared.setUp(apiKey: "205")
         
         let button = IBotSDK.shared.showIBotButton(in: self.view)
         button.isHidden = false

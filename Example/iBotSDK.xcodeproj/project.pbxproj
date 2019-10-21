@@ -14,6 +14,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		6A1D2A70235D4D57001F9408 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1D2A6F235D4D56001F9408 /* WebKit.framework */; };
 		8632ACEBD0D955483387400B /* Pods_iBotSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F050F6D611DB3A9CF6B9740E /* Pods_iBotSDK_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		607FACE51AFB9204008FA782 /* iBotSDK_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iBotSDK_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		6A1D2A6F235D4D56001F9408 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6A4C276518DFF6B902BAB9DE /* Pods-iBotSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iBotSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-iBotSDK_Example/Pods-iBotSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6AB70370CFA11D03D1DFC56F /* Pods_iBotSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iBotSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8644F2FAE4036395ABFA5E73 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A1D2A70235D4D57001F9408 /* WebKit.framework in Frameworks */,
 				8632ACEBD0D955483387400B /* Pods_iBotSDK_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +156,7 @@
 		81A7FB2780FD1B002BF43838 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A1D2A6F235D4D56001F9408 /* WebKit.framework */,
 				F050F6D611DB3A9CF6B9740E /* Pods_iBotSDK_Example.framework */,
 				6AB70370CFA11D03D1DFC56F /* Pods_iBotSDK_Tests.framework */,
 			);

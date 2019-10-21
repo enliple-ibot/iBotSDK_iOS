@@ -19,6 +19,12 @@ public class IBotSDK {
     
     public func setUp(apiKey:String) {
         self.apiKey = apiKey
+        
+        IBApi.shared.getIBotInfo { (jsonDict, error) in
+            if let json = jsonDict {
+                print(json)
+            }
+        }
     }
     
     
@@ -27,7 +33,10 @@ public class IBotSDK {
             return nil
         }
         else {
-            return "https://bot.istore.camp/index.html?mallId=\(apiKey)"
+//            return "http://192.168.1.6:5000/index.html?mallId=205"
+            return "http://scm-enliple.iptime.org:8884/index.html?mallId=205"
+            
+//            return "https://bot.istore.camp/index.html?mallId=\(apiKey)"
         }
     }
     
