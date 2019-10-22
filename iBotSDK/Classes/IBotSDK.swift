@@ -25,6 +25,9 @@ public class IBotSDK {
                 print(json)
             }
         }
+        
+        print("version : \(Bundle(for: IBotSDK.self).object(forInfoDictionaryKey: "CFBundleShortVersionString" as String))")
+        print("version : \(Bundle(for: IBotSDK.self).object(forInfoDictionaryKey: kCFBundleVersionKey as String))")
     }
     
     
@@ -33,10 +36,8 @@ public class IBotSDK {
             return nil
         }
         else {
-//            return "http://192.168.1.6:5000/index.html?mallId=205"
-            return "http://scm-enliple.iptime.org:8884/index.html?mallId=205"
-            
-//            return "https://bot.istore.camp/index.html?mallId=\(apiKey)"
+//            return "http://scm-enliple.iptime.org:8884/index.html?mallId=205"
+            return "https://bot.istore.camp/index.html?mallId=\(apiKey)"
         }
     }
     
@@ -59,7 +60,6 @@ public class IBotSDK {
                                                                             width: buttonSize,
                                                                             height: buttonSize))
         button.isUserInteractionEnabled = true
-        button.buttonBorderColor = .white
         button.expandableViewShowing = true
         button.isShowing = true
         

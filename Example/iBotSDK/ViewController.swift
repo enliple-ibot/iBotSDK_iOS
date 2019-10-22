@@ -32,7 +32,8 @@ class ViewController: UIViewController {
         }
         
         
-        IBotSDK.shared.setUp(apiKey: "205")
+//        IBotSDK.shared.setUp(apiKey: "205")
+        IBotSDK.shared.setUp(apiKey: "1")
         
         let button = IBotSDK.shared.showIBotButton(in: self.view)
         button.isHidden = false

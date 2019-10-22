@@ -16,7 +16,7 @@ public class IBotChatButton: UIView {
     }
     
     
-    @IBInspectable public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 114, g: 71, b: 199) {
+    @IBInspectable public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 128, g: 70, b: 204) {
         didSet {
             subMessageView.backgroundColor = expandableViewBackgroundColor
         }
@@ -31,14 +31,6 @@ public class IBotChatButton: UIView {
             }
         }
     }
-    
-    
-    @IBInspectable public var buttonBorderColor:UIColor = UIColor.init(r: 111, g: 88, b: 182) {
-        didSet {
-            floatButtonView.layer.borderColor = buttonBorderColor.cgColor
-        }
-    }
-    
     
     var isShowing:Bool = true {
         didSet {
@@ -137,11 +129,9 @@ public class IBotChatButton: UIView {
         subMessageView.layer.cornerRadius = self.bounds.height / 2.0
         
         floatButtonView.frame = self.bounds
-        floatButtonView.backgroundColor = UIColor.init(r: 121, g: 98, b: 162)
+        floatButtonView.backgroundColor = UIColor.init(r: 119, g: 88, b: 186)
         floatButtonView.layer.masksToBounds = true
         floatButtonView.layer.cornerRadius = (self.bounds.height < self.bounds.width ? self.bounds.height : self.bounds.width) / 2.0
-        floatButtonView.layer.borderColor = buttonBorderColor.cgColor
-        floatButtonView.layer.borderWidth = 1.0
         
         loadDefaultImage()
         if buttonImage != nil && buttonImage!.size != .zero {
@@ -152,12 +142,12 @@ public class IBotChatButton: UIView {
         floatButtonView.isUserInteractionEnabled = true
         floatButtonView.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(excuteTapGesture(gesture:))))
         
-        closeButton.setTitle("X", for: .normal)
-        closeButton.setTitleColor(.white, for: .normal)
+        
+        setUpCloseButtonImage()
         closeButton.backgroundColor = .clear
         closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
         
-        messageLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .medium)
+        messageLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .medium)
         messageLabel.textColor = .white
         messageLabel.text = "반가워요~ 인공지능 상담봇 입니다."
         
@@ -169,6 +159,11 @@ public class IBotChatButton: UIView {
         if buttonImage == nil || buttonImage!.size == .zero {
             buttonImage = UIImage.init(named: "showbot_icon", in: Bundle(for: IBWebViewController.self), compatibleWith: nil)
         }
+    }
+    
+    func setUpCloseButtonImage() {
+        closeButton.setImage(UIImage.init(named: "closeWhiteIco", in: Bundle(for: IBWebViewController.self), compatibleWith: nil),
+                             for: .normal)
     }
     
     func calcMaximumWidth(isInLeftSide:Bool) {
@@ -186,6 +181,7 @@ public class IBotChatButton: UIView {
     
     @objc func closeButtonClicked() {
         //TODO - close button clicked
+        
     }
     
     @objc func excuteTapGesture(gesture:UITapGestureRecognizer) {

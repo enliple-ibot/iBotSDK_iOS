@@ -12,7 +12,9 @@ typealias IBApiCallback = (_ result:[String: Any]?, _ error:Error?) -> Void
 class IBApi {
     let timeOutInterval:TimeInterval = 15
     
-    let HOST = "http://scm-enliple.iptime.org:8880"
+//    let HOST = "http://scm-enliple.iptime.org:8880"
+    let HOST = "https://chatapi.istore.camp"
+    
     
     let API_CHECK_ISALIVE = "/chat/isAlivePackage"
     
@@ -107,21 +109,12 @@ class IBApi {
     
     
     func getIBotInfo(completionHandler:@escaping IBApiCallback) {
-//        let params = [
-//            "email":""
-//        ]
-//
-//        let requestParams: [String: Any] = [
-//            "action": "601",
-//            "params": params
-//        ]
-
+        
         sendPostRequest(apiUrl: "https://api.puddinglive.com:8080/v1/config", params: nil, completionHandler: completionHandler)
     }
     
     
     func checkIbotAlive(mallId:String, completionHandler:@escaping IBApiCallback) {
-        
         sendGetRequest(apiUrl: HOST + API_CHECK_ISALIVE, params: ["mallId" : mallId], completionHandler: completionHandler)
     }
 }
