@@ -9,21 +9,24 @@ import UIKit
 @IBDesignable
 public class IBotChatButton: UIView {
     
-    @IBInspectable public var expandableViewShowing:Bool = true {
+//    @IBInspectable 
+    public var expandableViewShowing:Bool = true {
         didSet {
             isAnimated = !expandableViewShowing
         }
     }
     
     
-    @IBInspectable public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 128, g: 70, b: 204) {
+//    @IBInspectable
+    public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 128, g: 70, b: 204) {
         didSet {
             subMessageView.backgroundColor = expandableViewBackgroundColor
         }
     }
     
     
-    @IBInspectable public var buttonImage:UIImage? = nil {
+//    @IBInspectable
+    public var buttonImage:UIImage? = nil {
         didSet {
             if let _ = buttonImage {
                 floatButtonView.image = buttonImage
@@ -103,8 +106,13 @@ public class IBotChatButton: UIView {
     
     public override func willMove(toWindow newWindow: UIWindow?) {
         super.willMove(toWindow: newWindow)
+        
+        if newWindow == nil {
+            print("chatbot disappear")
+        } else {
+            print("chatbot appear")
+        }
     }
-    
     
     public override func didMoveToWindow() {
         super.didMoveToWindow()
@@ -190,7 +198,7 @@ public class IBotChatButton: UIView {
             if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
                 
                 IBApi.shared.checkIbotAlive(mallId: IBotSDK.shared.apiKey) { (result, error) in
-                    if let json = result, (json["result"] as! String).uppercased() == "TRUE" {
+                    if let json = result, ((json["result"] as? String)?.uppercased() == "TRUE" || (json["result"] as? Bool) == true) {
                         
                         let showingUrl = IBotSDK.shared.getChatBotUrl() ?? ""
                         

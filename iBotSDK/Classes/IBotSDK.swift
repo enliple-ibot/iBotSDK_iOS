@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import AdSupport
 
 
 public class IBotSDK {
@@ -14,30 +14,29 @@ public class IBotSDK {
     public static let shared: IBotSDK = IBotSDK()
     
     public var apiKey:String = ""
-    
+    fileprivate var chatbotUrl:String = ""
     
     
     public func setUp(apiKey:String) {
         self.apiKey = apiKey
         
-        IBApi.shared.getIBotInfo { (jsonDict, error) in
+        IBApi.shared.getIBotInfo(apiKey: apiKey, completionHandler: { (jsonDict, error) in
             if let json = jsonDict {
                 print(json)
+                self.chatbotUrl = json["url"] as? String ?? "" 
             }
-        }
-        
-        print("version : \(Bundle(for: IBotSDK.self).object(forInfoDictionaryKey: "CFBundleShortVersionString" as String))")
-        print("version : \(Bundle(for: IBotSDK.self).object(forInfoDictionaryKey: kCFBundleVersionKey as String))")
+        }) 
     }
     
     
     func getChatBotUrl() -> String? {
-        if apiKey.isEmpty {
+        if chatbotUrl.isEmpty {
             return nil
         }
         else {
+            return chatbotUrl
 //            return "http://scm-enliple.iptime.org:8884/index.html?mallId=205"
-            return "https://bot.istore.camp/index.html?mallId=\(apiKey)"
+//            return "https://bot.istore.camp/index.html?mallId=\(apiKey)"
         }
     }
     
@@ -67,5 +66,13 @@ public class IBotSDK {
         
         
         return button
+    }
+    
+    
+    var advertisingIdentifierIfPresent: String? {
+        if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
+            return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        }
+        return nil        
     }
 }

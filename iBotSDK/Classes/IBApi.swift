@@ -12,11 +12,13 @@ typealias IBApiCallback = (_ result:[String: Any]?, _ error:Error?) -> Void
 class IBApi {
     let timeOutInterval:TimeInterval = 15
     
-//    let HOST = "http://scm-enliple.iptime.org:8880"
-    let HOST = "https://chatapi.istore.camp"
+    let HOST = "http://scm-enliple.iptime.org:8880"
+//    let HOST = "https://chatapi.istore.camp"
     
     
+    let API_SDK_INIT = "/chat/initSdk"
     let API_CHECK_ISALIVE = "/chat/isAlivePackage"
+    let API_SEND_DEVICEINFO = "/chat/"
     
     
     public static let shared: IBApi = IBApi()
@@ -108,13 +110,29 @@ class IBApi {
     
     
     
-    func getIBotInfo(completionHandler:@escaping IBApiCallback) {
-        
-        sendPostRequest(apiUrl: "https://api.puddinglive.com:8080/v1/config", params: nil, completionHandler: completionHandler)
+    func getIBotInfo(apiKey:String, completionHandler:@escaping IBApiCallback) {
+        sendGetRequest(apiUrl: HOST + API_SDK_INIT, params: ["apiKey" : apiKey], completionHandler: completionHandler)
     }
     
     
     func checkIbotAlive(mallId:String, completionHandler:@escaping IBApiCallback) {
-        sendGetRequest(apiUrl: HOST + API_CHECK_ISALIVE, params: ["mallId" : mallId], completionHandler: completionHandler)
+        sendGetRequest(apiUrl: HOST + API_CHECK_ISALIVE, params: ["apiKey" : mallId], completionHandler: completionHandler)
+    }
+    
+    func sendDeviceInfo(uid:String, completionHandler:@escaping IBApiCallback) {
+        let data = [
+            "uuid" : IBUtil.shared.getUUID,
+            "os_version" : IBUtil.shared.OSVersion,
+            "os_type" : IBUtil.shared.OSType,
+            "sdk_version" : IBUtil.shared.sdkVersion,
+            "device" : IBUtil.shared.modelName
+        ]
+        
+        let params:[String: Any] = [
+            "uuid" : uid,
+            "data" : data
+        ]
+        
+        sendPostRequest(apiUrl: "https://api.puddinglive.com:8080/v1/config", params: params, completionHandler: completionHandler)
     }
 }

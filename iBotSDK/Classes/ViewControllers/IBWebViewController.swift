@@ -31,22 +31,25 @@ class IBWebViewController: UIViewController {
         self.init()
     }
     
-    var loadUrl:String = ""
+    
     
     @IBOutlet fileprivate weak var wkWebView: WKWebView!
+    
+    var loadUrl:String = ""
+    var isFirstLoadingFinish:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         wkWebView.uiDelegate = self
-        
+        wkWebView.navigationDelegate = self
         
         wkWebView.scrollView.bounces = false
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
-//        wkWebView.enableConsoleLog()
         
         if let url = URL.init(string: loadUrl) {
+            isFirstLoadingFinish = false
             wkWebView.load(URLRequest.init(url: url))
         }   
     }
@@ -104,7 +107,41 @@ extension IBWebViewController: WKUIDelegate {
         
         return nil
     }
+}
+
+
+extension IBWebViewController: WKNavigationDelegate {
     
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if !isFirstLoadingFinish {
+            isFirstLoadingFinish = true
+            getUidFromCookie()
+        }
+    }
+    
+    
+    func getUidFromCookie() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) { 
+            var uid = ""
+            WKWebsiteDataStore.default().httpCookieStore.getAllCookies { (cookies) in
+                for cookie in cookies{ 
+                    if cookie.name == "uid" {
+                        uid = cookie.value
+                        break
+                    }
+                }
+                
+                if uid.isEmpty {
+                    print("try again-----")
+                    self.getUidFromCookie()
+                }
+                else {
+                    print("uid : \(uid)")
+                    IBApi.shared.sendDeviceInfo(uid: uid) { (result, error) in }
+                }
+            }
+        }
+    }
 }
 
 
