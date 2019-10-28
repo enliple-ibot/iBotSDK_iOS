@@ -41,6 +41,36 @@ public class IBotChatButton: UIView {
         }
     }
     
+    
+    public var apiKey:String = "" {
+        didSet {
+            if apiKey.isEmpty {
+                chatbotUrl = ""
+            }
+            else {
+                IBApi.shared.getIBotInfo(apiKey: apiKey, completionHandler: { (jsonDict, error) in
+                    if let json = jsonDict {
+                        print(json)
+                        self.chatbotUrl = json["url"] as? String ?? ""
+                        
+                        DispatchQueue.main.async {
+                            self.isShowing = true
+                        }
+                    }
+                    else {
+                        DispatchQueue.main.async {
+                            self.isShowing = false
+                        }
+                    }
+                }) 
+            }
+        }
+    }
+    
+    fileprivate var chatbotUrl:String = ""
+    
+    
+    
     override public var isHidden: Bool {
         didSet {
             if !isShowing && isHidden == false {
@@ -77,6 +107,9 @@ public class IBotChatButton: UIView {
         
         self.floatButtonView.prepareForInterfaceBuilder()
         self.subMessageView.prepareForInterfaceBuilder()
+    }
+    
+    deinit {
     }
     
     
@@ -121,7 +154,7 @@ public class IBotChatButton: UIView {
         self.isHidden = isHide
     }
     
-    func commonInit() {
+    private func commonInit() {
         isAnimated = !expandableViewShowing
         
         self.backgroundColor = .clear
@@ -189,7 +222,6 @@ public class IBotChatButton: UIView {
     
     @objc func closeButtonClicked() {
         //TODO - close button clicked
-        
     }
     
     @objc func excuteTapGesture(gesture:UITapGestureRecognizer) {
@@ -197,17 +229,20 @@ public class IBotChatButton: UIView {
         if gesture.view == floatButtonView {
             if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
                 
-                IBApi.shared.checkIbotAlive(mallId: IBotSDK.shared.apiKey) { (result, error) in
+                IBApi.shared.checkIbotAlive(apiKey: apiKey) { (result, error) in
                     if let json = result, ((json["result"] as? String)?.uppercased() == "TRUE" || (json["result"] as? Bool) == true) {
                         
-                        let showingUrl = IBotSDK.shared.getChatBotUrl() ?? ""
+                        let showingUrl = self.chatbotUrl
                         
-                        if rootViewController is UINavigationController {
-                            IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: true)
+                        DispatchQueue.main.async {
+                            if rootViewController is UINavigationController {
+                                IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: true)
+                            }
+                            else {
+                                IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl)
+                            }
                         }
-                        else {
-                            IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl)
-                        }
+                        
                     }
                 }
                 

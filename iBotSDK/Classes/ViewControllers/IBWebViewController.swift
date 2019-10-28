@@ -45,6 +45,7 @@ class IBWebViewController: UIViewController {
         wkWebView.navigationDelegate = self
         
         wkWebView.scrollView.bounces = false
+        wkWebView.enableConsoleLog()
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
         
@@ -147,22 +148,22 @@ extension IBWebViewController: WKNavigationDelegate {
 
 
 
-//extension WKWebView: WKScriptMessageHandler {
-//
-//    /// enabling console.log
-//    public func enableConsoleLog() {
-//
-//        //    set message handler
-//        configuration.userContentController.add(self, name: "logging")
-//
-//        //    override console.log
-//        let _override = WKUserScript(source: "var console = { log: function(msg){window.webkit.messageHandlers.logging.postMessage(msg) }};", injectionTime: .atDocumentStart, forMainFrameOnly: false)
-//        
-//        configuration.userContentController.addUserScript(_override)
-//    }
-//
-//    /// message handler
-//    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-//        print("WebView: ", message.body)
-//    }
-//}
+extension WKWebView: WKScriptMessageHandler {
+
+    /// enabling console.log
+    public func enableConsoleLog() {
+
+        //    set message handler
+        configuration.userContentController.add(self, name: "logging")
+
+        //    override console.log
+        let _override = WKUserScript(source: "var console = { log: function(msg){window.webkit.messageHandlers.logging.postMessage(msg) }};", injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        
+        configuration.userContentController.addUserScript(_override)
+    }
+
+    /// message handler
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        print("WebView: ", message.body)
+    }
+}

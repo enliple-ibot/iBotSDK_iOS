@@ -17,6 +17,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var chatbotButton: IBotChatButton!
     
     
+    private var apiKey:String = "1"
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -32,11 +35,12 @@ class ViewController: UIViewController {
         }
         
         
-        IBotSDK.shared.setUp(apiKey: "205")
+//        IBotSDK.shared.setUp(apiKey: "205")
 //        IBotSDK.shared.setUp(apiKey: "1")
         
-        let button = IBotSDK.shared.showIBotButton(in: self.view)
+        let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
         button.isHidden = false
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +49,11 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    
+    @IBAction func buttonClicked(_ sender: Any) {
+        IBotSDK.shared.showChatbotInBrowser(apiKey:apiKey)
     }
     
 }

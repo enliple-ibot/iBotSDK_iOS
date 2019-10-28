@@ -26,6 +26,10 @@ class IBUtil {
         return Bundle(for: IBUtil.self).object(forInfoDictionaryKey: "CFBundleShortVersionString" as String) as? String ?? "unknown"
     }
     
+    var bundleID:String {
+        return Bundle(for: IBUtil.self).object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as? String ?? "unknown"
+    }
+    
     var modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)
