@@ -13,42 +13,6 @@ public class IBotSDK {
     
     public static let shared: IBotSDK = IBotSDK()
     
-//    public var apiKey:String = ""
-//    fileprivate var chatbotUrl:String = ""
-    
-//    public func setUp(apiKey:String) {
-//        self.apiKey = apiKey
-//        
-//        IBApi.shared.getIBotInfo(apiKey: apiKey, completionHandler: { (jsonDict, error) in
-//            if let json = jsonDict {
-//                print(json)
-//                self.chatbotUrl = json["url"] as? String ?? ""
-//                
-//                DispatchQueue.main.async {
-//                    IBotChatButtonManager.shared.finishSDKInit(initSuccess: true)
-//                }
-//            }
-//            else {
-//                DispatchQueue.main.async {
-//                    IBotChatButtonManager.shared.finishSDKInit(initSuccess: false)
-//                }
-//            }
-//        }) 
-//    }
-//    
-//    
-//    func getChatBotUrl() -> String? {
-//        if chatbotUrl.isEmpty {
-//            return nil
-//        }
-//        else {
-//            return chatbotUrl
-////            return "http://scm-enliple.iptime.org:8884/index.html?mallId=205"
-////            return "https://bot.istore.camp/index.html?mallId=\(apiKey)"
-//        }
-//    }
-    
-    
     public func showIBotButton(in parent:UIView, apiKey:String) -> IBotChatButton {
         let parentBound = parent.bounds
  

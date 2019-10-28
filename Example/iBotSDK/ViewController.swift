@@ -29,7 +29,6 @@ class ViewController: UIViewController {
         
         let siteUrl:String = "https://mobon.net/main/m2/"
         
-
         if let url = URL(string: siteUrl) {
             wkWebView.load(URLRequest.init(url: url))
         }
@@ -40,7 +39,6 @@ class ViewController: UIViewController {
         
         let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
         button.isHidden = false
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
