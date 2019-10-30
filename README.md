@@ -23,18 +23,23 @@ pod 'iBotSDK'
 ```
 
 ## Usage
-### init
+
+### Basic
 ```swift
 import iBotSDK
 
-iBotSDK.shard.setUp(apiKey: 'Your APIKey')
+IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
 ```
 
-### Add IBotChatButton 
+### Edit IBotChatButton
+
 ```swift
-IBotSDK.shared.showIBotButton(in: self.view)
+
+let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
+button.openInModal = false
+button.frame.origin.y = button2.frame.origin.y - 100
+
 ```
-Or just Add IBotChatButton in StoryBoard or XIB
 
 
 ## Author

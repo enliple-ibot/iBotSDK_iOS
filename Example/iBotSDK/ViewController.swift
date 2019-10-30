@@ -14,10 +14,9 @@ import iBotSDK
 class ViewController: UIViewController {
 
     @IBOutlet weak var wkWebView: WKWebView!
-    @IBOutlet weak var chatbotButton: IBotChatButton!
     
-    
-    private var apiKey:String = "1"
+//    private var apiKey:String = "1"
+    private var apiKey:String = "205"
     
     
     override func didReceiveMemoryWarning() {
@@ -33,12 +32,14 @@ class ViewController: UIViewController {
             wkWebView.load(URLRequest.init(url: url))
         }
         
-        
-//        IBotSDK.shared.setUp(apiKey: "205")
-//        IBotSDK.shared.setUp(apiKey: "1")
-        
         let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
         button.isHidden = false
+        
+        
+        let button2 = IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
+        button2.isHidden = false
+        button2.frame.origin.y = button2.frame.origin.y - 100
+        button2.openInModal = false
     }
     
     override func viewWillAppear(_ animated: Bool) {

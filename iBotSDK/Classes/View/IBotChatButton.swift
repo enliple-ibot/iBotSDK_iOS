@@ -42,6 +42,8 @@ public class IBotChatButton: UIView {
     }
     
     
+    open var openInModal:Bool = true
+    
     public var apiKey:String = "" {
         didSet {
             if apiKey.isEmpty {
@@ -144,6 +146,7 @@ public class IBotChatButton: UIView {
             print("chatbot disappear")
         } else {
             print("chatbot appear")
+            IBApi.shared.checkIbotAlive(apiKey: apiKey) { (json, error) in }
         }
     }
     
@@ -235,7 +238,7 @@ public class IBotChatButton: UIView {
                         let showingUrl = self.chatbotUrl
                         
                         DispatchQueue.main.async {
-                            if rootViewController is UINavigationController {
+                            if (rootViewController is UINavigationController) && self.openInModal == false {
                                 IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: true)
                             }
                             else {

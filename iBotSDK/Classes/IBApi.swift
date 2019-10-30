@@ -12,8 +12,8 @@ typealias IBApiCallback = (_ result:[String: Any]?, _ error:Error?) -> Void
 class IBApi {
     let timeOutInterval:TimeInterval = 15
     
-//    let HOST = "http://scm-enliple.iptime.org:8880"
-    let HOST = "https://chatapi.istore.camp"
+    let HOST = "http://scm-enliple.iptime.org:8880"
+//    let HOST = "https://chatapi.istore.camp"
     
     
     let API_SDK_INIT = "/chat/initSdk"
@@ -144,7 +144,7 @@ class IBApi {
     }
     
     
-    func downloadButtonImage(imageUrl:String, completionHandler:@escaping IBApiCallback) {
+    func downloadButtonImage(apiKey:String, imageUrl:String, completionHandler:@escaping IBApiCallback) {
         if let url = URL(string: imageUrl) {
             let sessionConfig = URLSessionConfiguration.default
             let session = URLSession(configuration: sessionConfig)
@@ -153,10 +153,8 @@ class IBApi {
             
             let task = session.dataTask(with: request) { (data, response, error) in
                 if (error == nil) {
-
-                    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                    let dirPath = paths[0].appendingPathComponent("iBotResource")
-                    let filePath = dirPath.appendingPathComponent("button.png")
+                    let dirPath = self.getButtonImageDirectoryPath(apiKey: apiKey)
+                    let filePath = self.getButtonImageFilePath(apiKey: apiKey)
                     
                     do {
                         if !FileManager.default.fileExists(atPath: dirPath.absoluteString) {
@@ -188,4 +186,16 @@ class IBApi {
         }
         
     }
+    
+    
+    func getButtonImageDirectoryPath(apiKey:String) -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0].appendingPathComponent("iBotResource")
+        
+    }
+    
+    func getButtonImageFilePath(apiKey:String) -> URL {
+        return getButtonImageDirectoryPath(apiKey: apiKey).appendingPathComponent("button_\(apiKey).png")
+    }
 }
+
