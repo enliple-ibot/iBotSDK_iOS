@@ -9,6 +9,18 @@ import UIKit
 @IBDesignable
 public class IBotChatButton: UIView {
     
+    private static var podsBundle: Bundle {
+        let bundle = Bundle(for: IBotChatButton.self)
+        if let url = bundle.url(forResource: "IBotChatButton", withExtension: "bundle") {
+            return Bundle(url: url)!
+        }
+        
+        return bundle 
+    }
+    
+    
+    
+    
 //    @IBInspectable 
     public var expandableViewShowing:Bool = true {
         didSet {
@@ -201,12 +213,15 @@ public class IBotChatButton: UIView {
     
     func loadDefaultImage() {
         if buttonImage == nil || buttonImage!.size == .zero {
-            buttonImage = UIImage.init(named: "showbot_icon", in: Bundle(for: IBWebViewController.self), compatibleWith: nil)
+//            buttonImage = UIImage.init(named: "showbot_icon", in: Bundle(for: IBotChatButton.self), compatibleWith: nil)
+            buttonImage = UIImage.init(named: "showbot_icon", in: IBotChatButton.podsBundle, compatibleWith: nil)
         }
     }
     
     func setUpCloseButtonImage() {
-        closeButton.setImage(UIImage.init(named: "closeWhiteIco", in: Bundle(for: IBWebViewController.self), compatibleWith: nil),
+//        closeButton.setImage(UIImage.init(named: "closeWhiteIco", in: Bundle(for: IBotChatButton.self), compatibleWith: nil),
+//                             for: .normal)
+        closeButton.setImage(UIImage.init(named: "closeWhiteIco", in: IBotChatButton.podsBundle, compatibleWith: nil),
                              for: .normal)
     }
     

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iBotSDK'
-  s.version          = '0.0.5'
+  s.version          = '0.0.6'
   s.summary          = 'iBotSDK for iOS'
 
   
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
 
-  s.description      = 'iBotSDK for iOS'
+  s.description      = 'iBotSDK for iOS \O_O/'
 
   s.homepage         = 'http://brand.istore.camp/'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -36,8 +36,5 @@ Pod::Spec.new do |s|
                    'iBotSDK/Classes/**/*.xib']
   }
 
-  
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'1
+
 end
