@@ -27,7 +27,8 @@ class IBUtil {
     }
     
     var bundleID:String {
-        return Bundle(for: IBUtil.self).object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as? String ?? "unknown"
+        return Bundle.main.object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as? String ?? "unknown"
+//        return Bundle(for: IBUtil.self).object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as? String ?? "unknown"
     }
     
     var modelName: String {

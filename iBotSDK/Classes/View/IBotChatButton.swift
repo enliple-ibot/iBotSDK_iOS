@@ -56,7 +56,7 @@ public class IBotChatButton: UIView {
                         self.chatbotUrl = json["url"] as? String ?? ""
                         
                         DispatchQueue.main.async {
-                            self.isShowing = true
+                            self.isShowing = !self.chatbotUrl.isEmpty
                         }
                     }
                     else {

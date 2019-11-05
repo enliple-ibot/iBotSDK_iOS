@@ -115,7 +115,7 @@ class IBApi {
             "uuid" : IBUtil.shared.getUUID,
             "sdk_version" : IBUtil.shared.sdkVersion,
             "os_version" : IBUtil.shared.OSVersion,
-            "appKind" : IBUtil.shared.bundleID
+            "bundleId" : IBUtil.shared.bundleID
         ]
         
         sendGetRequest(apiUrl: HOST + API_SDK_INIT, params: param, completionHandler: completionHandler)
