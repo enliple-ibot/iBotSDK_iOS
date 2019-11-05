@@ -15,8 +15,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var wkWebView: WKWebView!
     
-//    private var apiKey:String = "1"
-    private var apiKey:String = "205"
+    private var apiKey:String = "2"
+//    private var apiKey:String = "205"
     
     
     override func didReceiveMemoryWarning() {
