@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class IBUtil {
     static let shared:IBUtil = IBUtil()
