@@ -11,7 +11,7 @@ public class IBotChatButton: UIView {
     
     private static var podsBundle: Bundle {
         let bundle = Bundle(for: IBotChatButton.self)
-        if let url = bundle.url(forResource: "IBotChatButton", withExtension: "bundle") {
+        if let url = bundle.url(forResource: "IBotSDK", withExtension: "bundle") {
             return Bundle(url: url)!
         }
         
