@@ -11,7 +11,7 @@ public class IBotChatButton: UIView {
     
     private static var podsBundle: Bundle {
         let bundle = Bundle(for: IBotChatButton.self)
-        if let url = bundle.url(forResource: "IBotSDK", withExtension: "bundle") {
+        if let url = bundle.url(forResource: "iBotSDK", withExtension: "bundle") {
             return Bundle(url: url)!
         }
         
@@ -213,14 +213,11 @@ public class IBotChatButton: UIView {
     
     func loadDefaultImage() {
         if buttonImage == nil || buttonImage!.size == .zero {
-//            buttonImage = UIImage.init(named: "showbot_icon", in: Bundle(for: IBotChatButton.self), compatibleWith: nil)
             buttonImage = UIImage.init(named: "showbot_icon", in: IBotChatButton.podsBundle, compatibleWith: nil)
         }
     }
     
     func setUpCloseButtonImage() {
-//        closeButton.setImage(UIImage.init(named: "closeWhiteIco", in: Bundle(for: IBotChatButton.self), compatibleWith: nil),
-//                             for: .normal)
         closeButton.setImage(UIImage.init(named: "closeWhiteIco", in: IBotChatButton.podsBundle, compatibleWith: nil),
                              for: .normal)
     }
