@@ -12,11 +12,17 @@ import WebKit
 import iBotSDK
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var wkWebView: WKWebView!
     
-//    private var apiKey:String = "2"
     private var apiKey:String = "205"
+    
+    @IBOutlet weak var openTypeSegment: UISegmentedControl!
+    @IBOutlet weak var positionSegment: UISegmentedControl!
+    @IBOutlet weak var dragSegment: UISegmentedControl!
+    
+    
+    
+    
+    var chatButton:UIView? = nil
     
     
     override func didReceiveMemoryWarning() {
@@ -25,21 +31,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let siteUrl:String = "https://mobon.net/main/m2/"
-        
-        if let url = URL(string: siteUrl) {
-            wkWebView.load(URLRequest.init(url: url))
-        }
-        
-        let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
-        button.isHidden = false
-        
-        
-        let button2 = IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
-        button2.isHidden = false
-        button2.frame.origin.y = button2.frame.origin.y - 100
-        button2.openInModal = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,8 +42,80 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func buttonClicked(_ sender: Any) {
-        IBotSDK.shared.showChatbotInBrowser(apiKey:apiKey)
+    
+    @IBAction func generatorButtonClicked(_ sender: Any) {
+        if let button = chatButton {
+            button.removeFromSuperview()
+            chatButton = nil
+        }
+        
+        let position = positionSegment.selectedSegmentIndex
+        let openType = openTypeSegment.selectedSegmentIndex
+        
+        if openType == 2 {
+            chatButton = makeCustomButton()
+        }
+        else {
+            let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey: apiKey)
+            if openType == 1 {
+                button.openInModal = false
+            }
+            button.canDrag = (dragSegment.selectedSegmentIndex == 1)
+            
+            
+            chatButton = button
+        }
+        
+        
+        if position == 1 {      // middle
+            chatButton!.center = CGPoint.init(x: self.view.bounds.width / 2.0,
+                                              y: chatButton!.frame.origin.y + (chatButton!.frame.size.height / 2.0) )
+            
+        }
+        else if position == 2 {     //left
+            chatButton!.frame = CGRect.init(x: 10.0,
+                                            y: chatButton!.frame.origin.y, 
+                                            width: chatButton!.frame.size.width, 
+                                            height: chatButton!.frame.size.height)
+        }
+        
+        
+        
+        if let button = chatButton {
+            self.view.addSubview(button)
+        }
+    }
+    
+    
+    func makeCustomButton() -> UIButton {
+        let parentBound = self.view.bounds
+        
+        var bottomPadding:CGFloat = 0.0
+        
+        if let window = UIApplication.shared.keyWindow {
+            bottomPadding = window.safeAreaInsets.bottom
+        }
+        else if UIApplication.shared.windows.count > 0 {
+            bottomPadding = UIApplication.shared.windows[0].safeAreaInsets.bottom
+        }
+        
+        let buttonSize:CGFloat = 60.0
+        let button = UIButton.init(frame: CGRect.init(x: parentBound.width - (buttonSize + 10.0),
+                                                      y: parentBound.height - (buttonSize + bottomPadding + 10.0),
+                                                      width: buttonSize,
+                                                      height: buttonSize))
+        
+        button.backgroundColor = .cyan
+        button.layer.cornerRadius = buttonSize / 2.0
+        button.layer.masksToBounds = true
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(openBrowserButtonClicked), for: .touchUpInside)
+         
+        return button   
+    }
+    
+    @objc func openBrowserButtonClicked() {
+        IBotSDK.shared.showChatbotInBrowser(apiKey: apiKey)
     }
     
 }

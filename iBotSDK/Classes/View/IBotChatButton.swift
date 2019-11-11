@@ -42,7 +42,7 @@ public class IBotChatButton: UIView {
         didSet {
             if let _ = buttonImage {
                 floatButtonView.image = buttonImage
-                floatButtonView.contentMode = .scaleAspectFit
+                floatButtonView.contentMode = .scaleAspectFill
             }
         }
     }
@@ -50,11 +50,18 @@ public class IBotChatButton: UIView {
     var isShowing:Bool = true {
         didSet {
             self.isHidden = !isShowing
+//            IBViewAnimation.init().animateFlipping(view: self)
+//            IBViewAnimation.init().animateSpring(view: self)
+//            IBViewAnimation.init().animationTwinkle(view: self)
+//            IBViewAnimation.init().animationSlideUp(view: self)
+//            IBViewAnimation.init().animationFadeIn(view: self) 
         }
     }
     
     
     open var openInModal:Bool = true
+    open var canDrag:Bool = true
+    
     
     public var apiKey:String = "" {
         didSet {
@@ -66,9 +73,43 @@ public class IBotChatButton: UIView {
                     if let json = jsonDict {
                         print(json)
                         self.chatbotUrl = json["url"] as? String ?? ""
+                        var btnImageUrl = json["btnImg"] as? String ?? ""
+                        let backColor = json["backColor"] as? String ?? ""
+                        let msg = json["msg"] as? String ?? ""
+                        let modifyDt = json["modifyDt"] as? String ?? ""
                         
                         DispatchQueue.main.async {
-                            self.isShowing = !self.chatbotUrl.isEmpty
+                            
+//                            if btnImageUrl.isEmpty {
+//                                btnImageUrl = "http://www.topstarnews.net/news/photo/201807/450811_102530_129.jpg"
+//                            }
+                            
+                            if !btnImageUrl.isEmpty {
+                                IBApi.shared.downloadButtonImage(apiKey: self.apiKey, imageUrl: btnImageUrl) { (response, error) in
+                                    if let result = response, (result["result"] as? String ?? "") == "success" {
+                                        let imageFilePath = IBApi.shared.getButtonImageFilePath(apiKey: self.apiKey)
+                                        
+                                        DispatchQueue.main.async {
+                                            do {
+                                                let imageData = try Data.init(contentsOf: imageFilePath)
+                                                self.buttonImage = UIImage.init(data: imageData)
+                                            }
+                                            catch {}
+                                            
+                                            self.isShowing = !self.chatbotUrl.isEmpty
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                self.isShowing = !self.chatbotUrl.isEmpty
+                            }
+                            
+                            
+                            if !msg.isEmpty {
+                                self.messageLabel.text = msg
+                            }
+                            
                         }
                     }
                     else {
@@ -197,7 +238,7 @@ public class IBotChatButton: UIView {
         
         floatButtonView.isUserInteractionEnabled = true
         floatButtonView.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(excuteTapGesture(gesture:))))
-        
+        floatButtonView.addGestureRecognizer(UIPanGestureRecognizer.init(target: self, action: #selector(excutePanGesture(gesture:))))
         
         setUpCloseButtonImage()
         closeButton.backgroundColor = .clear
@@ -265,6 +306,24 @@ public class IBotChatButton: UIView {
         }
     }
     
+    @objc func excutePanGesture(gesture:UIPanGestureRecognizer) {
+        
+        if let parent = self.superview, canDrag == true {
+            let translation = gesture.translation(in: parent)
+            
+            var movedCenterY = self.center.y + translation.y
+            if movedCenterY > (parent.frame.height - self.frame.height / 2.0) - 10 {
+               movedCenterY = (parent.frame.height - self.frame.height / 2.0) - 10
+            }
+            else if movedCenterY < (self.frame.height / 2.0 + 10) {
+               movedCenterY = (self.frame.height / 2.0) + 10 
+            }
+            
+            self.center = CGPoint(x: self.center.x, y: movedCenterY)
+            gesture.setTranslation(CGPoint.zero, in: parent)
+        }
+        
+    }
     
     public func showSubMessageView() {
         subMessageView.alpha = 0.0

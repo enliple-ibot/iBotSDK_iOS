@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iO4-Hn-jnb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iO4-Hn-jnb">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,56 +16,121 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MlC-eN-J8i">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences" javaScriptCanOpenWindowsAutomatically="YES"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6Y-Qm-sCG">
-                                <rect key="frame" x="157.5" y="64" width="60" height="45"/>
-                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tuo-aN-XxU">
+                                <rect key="frame" x="120" y="20" width="245" height="41"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="Zxs-ha-fRo"/>
-                                    <constraint firstAttribute="height" constant="45" id="bHf-fz-XFx"/>
+                                    <constraint firstAttribute="height" constant="40" id="co4-r9-ZWp"/>
                                 </constraints>
-                                <state key="normal" title="Button">
+                                <segments>
+                                    <segment title="Right"/>
+                                    <segment title="Middle"/>
+                                    <segment title="Left"/>
+                                </segments>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QLr-u8-bzr">
+                                <rect key="frame" x="120" y="80" width="245" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="rSV-A3-Uij"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Modal"/>
+                                    <segment title="Navigation"/>
+                                    <segment title="Browser"/>
+                                </segments>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jo0-EE-MPf">
+                                <rect key="frame" x="120" y="140" width="245" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dMU-O2-Cu1"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Disable"/>
+                                    <segment title="Enable"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GjM-xP-qyu">
+                                <rect key="frame" x="10" y="200" width="355" height="45"/>
+                                <color key="backgroundColor" red="0.20539918664383561" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="UrF-gA-631"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Generate Button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="GQj-mo-S5w"/>
+                                    <action selector="generatorButtonClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ELd-Ju-2HN"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wB3-6c-Ynk">
+                                <rect key="frame" x="10" y="89.5" width="84" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="qbH-Xr-68M"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yx7-ZY-9sv">
+                                <rect key="frame" x="10" y="29.5" width="61" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="YwV-Rt-1L0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1R-4H-83g">
+                                <rect key="frame" x="10" y="149.5" width="37.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="TvU-rS-45w"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="MlC-eN-J8i" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0U7-QL-00O"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="MlC-eN-J8i" secondAttribute="bottom" id="5Do-LN-3hL"/>
-                            <constraint firstItem="MlC-eN-J8i" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="6P3-OI-kQ2"/>
-                            <constraint firstAttribute="trailing" secondItem="MlC-eN-J8i" secondAttribute="trailing" id="O2z-Gh-DAa"/>
-                            <constraint firstItem="i6Y-Qm-sCG" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="b9C-TS-drr"/>
-                            <constraint firstItem="i6Y-Qm-sCG" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="d8j-9w-YN8"/>
+                            <constraint firstItem="QLr-u8-bzr" firstAttribute="leading" secondItem="tuo-aN-XxU" secondAttribute="leading" id="Cyo-0P-LWs"/>
+                            <constraint firstAttribute="trailing" secondItem="QLr-u8-bzr" secondAttribute="trailing" constant="10" id="HHW-Nt-ON7"/>
+                            <constraint firstItem="GjM-xP-qyu" firstAttribute="top" secondItem="jo0-EE-MPf" secondAttribute="bottom" constant="20" id="IOE-he-vhY"/>
+                            <constraint firstAttribute="trailing" secondItem="tuo-aN-XxU" secondAttribute="trailing" constant="10" id="Mrx-r7-AHg"/>
+                            <constraint firstItem="jo0-EE-MPf" firstAttribute="leading" secondItem="tuo-aN-XxU" secondAttribute="leading" id="Osg-Dz-xIm"/>
+                            <constraint firstItem="D1R-4H-83g" firstAttribute="leading" secondItem="wB3-6c-Ynk" secondAttribute="leading" id="WXr-mY-XWu"/>
+                            <constraint firstAttribute="trailing" secondItem="GjM-xP-qyu" secondAttribute="trailing" constant="10" id="aFr-lS-dpd"/>
+                            <constraint firstItem="wB3-6c-Ynk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="cQZ-0r-Ctw"/>
+                            <constraint firstItem="jo0-EE-MPf" firstAttribute="centerY" secondItem="D1R-4H-83g" secondAttribute="centerY" id="ffN-MO-XOe"/>
+                            <constraint firstItem="Yx7-ZY-9sv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="itz-tt-1Ut"/>
+                            <constraint firstItem="QLr-u8-bzr" firstAttribute="centerY" secondItem="wB3-6c-Ynk" secondAttribute="centerY" id="jag-Hn-Uvu"/>
+                            <constraint firstItem="QLr-u8-bzr" firstAttribute="top" secondItem="tuo-aN-XxU" secondAttribute="bottom" constant="20" id="nbw-Vc-IIW"/>
+                            <constraint firstAttribute="trailing" secondItem="jo0-EE-MPf" secondAttribute="trailing" constant="10" id="rNg-4r-55W"/>
+                            <constraint firstItem="tuo-aN-XxU" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="sIx-8V-P7m"/>
+                            <constraint firstItem="jo0-EE-MPf" firstAttribute="top" secondItem="QLr-u8-bzr" secondAttribute="bottom" constant="20" id="w25-J5-hIV"/>
+                            <constraint firstItem="tuo-aN-XxU" firstAttribute="centerY" secondItem="Yx7-ZY-9sv" secondAttribute="centerY" id="wIq-Jc-KDR"/>
+                            <constraint firstItem="GjM-xP-qyu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="xgu-ky-xvQ"/>
+                            <constraint firstItem="tuo-aN-XxU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="120" id="zMN-ta-Nyi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wDg-zp-SSH"/>
                     <connections>
-                        <outlet property="wkWebView" destination="MlC-eN-J8i" id="dzW-Jq-1IE"/>
+                        <outlet property="dragSegment" destination="jo0-EE-MPf" id="B5I-gS-WHA"/>
+                        <outlet property="openTypeSegment" destination="QLr-u8-bzr" id="R6B-05-7Ha"/>
+                        <outlet property="positionSegment" destination="tuo-aN-XxU" id="iOd-HS-kIQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-278" y="166"/>
+            <point key="canvasLocation" x="-279.19999999999999" y="165.06746626686657"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mf7-wc-hWS">
             <objects>
                 <navigationController id="iO4-Hn-jnb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Rlw-ji-N00">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Rlw-ji-N00">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

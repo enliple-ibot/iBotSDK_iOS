@@ -24,20 +24,32 @@ pod 'iBotSDK'
 
 ## Usage
 
+### API Key
+You can get an api key in  [here](https://admin.istore.camp/).
+
+
 ### Basic
 ```swift
 import iBotSDK
 
-IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
+IBotSDK.shared.showIBotButton(in: self.view, apiKey:'YOUR_API_KEY')
 ```
 
 ### Edit IBotChatButton
 
 ```swift
 
-let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey:apiKey)
-button.openInModal = false
+let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey:'YOUR_API_KEY')
+
+// change position
 button.frame.origin.y = button2.frame.origin.y - 100
+
+
+// open in navigation viewcontroller
+button.openInModal = false
+
+// dragging
+button.canDrag = true
 
 ```
 
