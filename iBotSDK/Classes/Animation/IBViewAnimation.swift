@@ -7,10 +7,33 @@
 
 import UIKit
 
+public enum IBAnimationType: Int {
+    case flipping, spring, slideUp, fadeIn, twinkle 
+}
+
 
 class IBViewAnimation {
+    
+    static let shared = IBViewAnimation()
+    
+    func animate(with view:UIView, type:IBAnimationType) {
+        switch type {
+        case .flipping:
+            animationFlipping(view: view)
+        case .spring:
+            animationSpring(view: view)
+        case .slideUp:
+            animationSlideUp(view: view)
+        case .fadeIn:
+            animationFadeIn(view: view)
+        case .twinkle:
+            animationTwinkle(view: view)
+        }
+    }
+    
 
-    func animateFlipping(view:UIView) {
+    private func animationFlipping(view:UIView) {
+        
         let animation = CABasicAnimation.init(keyPath: "transform.rotation.y")
         animation.fromValue = 0.0
         animation.toValue = (Double.pi * 2)
@@ -25,14 +48,14 @@ class IBViewAnimation {
         view.layer.transform = transform
     }
     
-    func animateSpring(view:UIView) {
+    private func animationSpring(view:UIView) {
         view.center.y = view.center.y - 40.0
         UIView.animate(withDuration: 2.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             view.center.y = view.center.y + 40.0
         }, completion: nil)
     }
     
-    func animationSlideUp(view:UIView) {
+    private func animationSlideUp(view:UIView) {
         view.frame.origin.y = view.frame.origin.y + 100            
         UIView.animate(withDuration: 2.0, delay: 0.0, animations: {
             view.frame.origin.y = view.frame.origin.y - 100 
@@ -40,7 +63,7 @@ class IBViewAnimation {
         }
     }
     
-    func animationFadeIn(view:UIView) {
+    private func animationFadeIn(view:UIView) {
         view.alpha = 0.0      
         UIView.animate(withDuration: 2.0, delay: 0.0, animations: {
             view.alpha = 1.0
@@ -48,7 +71,7 @@ class IBViewAnimation {
         }
     }
     
-    func animationTwinkle(view:UIView) {
+    private func animationTwinkle(view:UIView) {
         view.alpha = 0.0
         
         UIView.animate(withDuration: 0.8, delay: 0, options: [.repeat], animations: {

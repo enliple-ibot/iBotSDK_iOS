@@ -50,14 +50,16 @@ public class IBotChatButton: UIView {
     var isShowing:Bool = true {
         didSet {
             self.isHidden = !isShowing
-//            IBViewAnimation.init().animateFlipping(view: self)
-//            IBViewAnimation.init().animateSpring(view: self)
-//            IBViewAnimation.init().animationTwinkle(view: self)
-//            IBViewAnimation.init().animationSlideUp(view: self)
-//            IBViewAnimation.init().animationFadeIn(view: self) 
+            
+            IBViewAnimation.shared.animate(with: self, type: animationType)
         }
     }
     
+//    private var animationType:IBAnimationType = .fadeIn
+//    private var animationType:IBAnimationType = .twinkle
+//    private var animationType:IBAnimationType = .slideUp
+//    private var animationType:IBAnimationType = .flipping
+    private var animationType:IBAnimationType = .spring
     
     open var openInModal:Bool = true
     open var canDrag:Bool = true

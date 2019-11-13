@@ -32,7 +32,7 @@ extension UIViewController {
         }
     }
     
-    public func hlDismiss() {
+    public func ibDismiss(naviBarShow:Bool = true) {
         if let _ = self.navigationController {
             var navigation:UINavigationController? = nil
             if self is UINavigationController {
@@ -40,6 +40,10 @@ extension UIViewController {
             }
             else  {
                 navigation = self.navigationController
+            }
+            
+            if let navi = navigation {
+                navi.setNavigationBarHidden(!naviBarShow, animated: false)
             }
             
             navigation?.popViewController(animated: true)    

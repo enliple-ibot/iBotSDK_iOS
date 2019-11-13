@@ -31,7 +31,7 @@ class IBWebViewController: UIViewController {
         self.init()
     }
     
-    
+    var willShowNavigationBarWhenDismiss:Bool = true
     
     @IBOutlet fileprivate weak var wkWebView: WKWebView!
     
@@ -74,7 +74,7 @@ class IBWebViewController: UIViewController {
     }
     
     @IBAction func clickedBackButton(_ sender: Any) {
-        self.hlDismiss()
+        self.ibDismiss(naviBarShow: willShowNavigationBarWhenDismiss)
     }
     
 }
@@ -91,7 +91,7 @@ extension IBWebViewController: WKScriptMessageHandler {
             print("message body : \(messageBody)")
             
             if message.body as! String == jsMethodClose {
-                self.hlDismiss()
+                self.ibDismiss(naviBarShow: willShowNavigationBarWhenDismiss)
             }
         }
     }

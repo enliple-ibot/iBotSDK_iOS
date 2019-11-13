@@ -15,6 +15,17 @@ class IBViewControllerPresenter {
         let vc = IBWebViewController.init(url:url)
         vc.loadUrl = url
         vc.modalPresentationStyle = .overFullScreen
+        
+        var navigation:UINavigationController? = nil
+        if parent is UINavigationController {
+            navigation = parent as? UINavigationController
+        }
+        else  {
+            navigation = parent.navigationController
+        }
+        vc.willShowNavigationBarWhenDismiss = !(navigation?.isNavigationBarHidden ?? true)
+        
+        
         parent.ibPresent(vc: vc, isPush: isPush, animated: animated, completion: completion)
     }
 }
