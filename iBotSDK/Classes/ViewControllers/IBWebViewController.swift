@@ -52,8 +52,6 @@ class IBWebViewController: UIViewController {
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
         
-        wkWebView.enableConsoleLog()
-        
         if let url = URL.init(string: loadUrl) {
             isFirstLoadingFinish = false
             
