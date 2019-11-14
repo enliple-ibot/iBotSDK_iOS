@@ -13,6 +13,8 @@ class IBWebViewController: UIViewController {
     fileprivate let jsHandlerName:String = "iBotAppHandler"
     fileprivate let jsMethodClose:String = "onAppViewClose"
     
+    
+    
     var createWebView: WKWebView?
     private weak var lastPresentedController : UIViewController?
     
@@ -35,6 +37,7 @@ class IBWebViewController: UIViewController {
     
     @IBOutlet fileprivate weak var wkWebView: WKWebView!
     
+    
     var loadUrl:String = ""
     var isFirstLoadingFinish:Bool = false
     
@@ -45,13 +48,21 @@ class IBWebViewController: UIViewController {
         wkWebView.navigationDelegate = self
         
         wkWebView.scrollView.bounces = false
+        wkWebView.scrollView.isScrollEnabled = false
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
         
+        wkWebView.enableConsoleLog()
+        
         if let url = URL.init(string: loadUrl) {
             isFirstLoadingFinish = false
-            wkWebView.load(URLRequest.init(url: url))
-        }   
+            
+            wkWebView.load(URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 15.0))
+//            wkWebView.load(URLRequest.init(url: url, cachePolicy: .returnCacheDataDontLoad, timeoutInterval: 15.0))
+//            wkWebView.load(URLRequest.init(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 15.0))
+        }
+        
+        registKeyboardNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -107,6 +118,16 @@ extension IBWebViewController: WKUIDelegate {
         
         return nil
     }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let urlScheme = navigationAction.request.url?.scheme ?? ""
+        if urlScheme == "tel" || urlScheme == "mailto" {
+            UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: nil)
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
+    }
 }
 
 
@@ -141,6 +162,38 @@ extension IBWebViewController: WKNavigationDelegate {
                 }
             }
         }
+    }
+    
+    
+}
+
+
+
+extension IBWebViewController {
+    
+    func registKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    func unregistKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(show: true, notification: notification)
+    }
+    
+    @objc func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(show: false, notification: notification)
+    }
+    
+    func adjustingHeight(show:Bool, notification:NSNotification) {
+        self.wkWebView.scrollView.scrollRectToVisible(CGRect.init(x: self.wkWebView.scrollView.contentSize.width-1,
+                                                                  y: self.wkWebView.scrollView.contentSize.height-1, 
+                                                                  width: 1,
+                                                                  height: 1),
+                                                      animated: false)
     }
 }
 
