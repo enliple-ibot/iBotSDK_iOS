@@ -18,10 +18,7 @@ public class IBotChatButton: UIView {
         return bundle 
     }
     
-    
-    
-    
-//    @IBInspectable 
+     
     public var expandableViewShowing:Bool = true {
         didSet {
             isAnimated = !expandableViewShowing
@@ -29,7 +26,6 @@ public class IBotChatButton: UIView {
     }
     
     
-//    @IBInspectable
     public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 128, g: 70, b: 204) {
         didSet {
             subMessageView.backgroundColor = expandableViewBackgroundColor
@@ -37,7 +33,6 @@ public class IBotChatButton: UIView {
     }
     
     
-//    @IBInspectable
     public var buttonImage:UIImage? = nil {
         didSet {
             if let _ = buttonImage {
@@ -50,16 +45,11 @@ public class IBotChatButton: UIView {
     var isShowing:Bool = true {
         didSet {
             self.isHidden = !isShowing
-            
-            IBViewAnimation.shared.animate(with: self, type: animationType)
+//            IBViewAnimation.shared.animate(with: self, type: animationType)
         }
     }
     
-//    private var animationType:IBAnimationType = .fadeIn
-//    private var animationType:IBAnimationType = .twinkle
-//    private var animationType:IBAnimationType = .slideUp
-//    private var animationType:IBAnimationType = .flipping
-    private var animationType:IBAnimationType = .spring
+    private var animationType:IBAnimationType = .fadeIn
     
     open var openInModal:Bool = true
     open var canDrag:Bool = true
@@ -81,10 +71,6 @@ public class IBotChatButton: UIView {
                         let modifyDt = json["modifyDt"] as? String ?? ""
                         
                         DispatchQueue.main.async {
-                            
-//                            if btnImageUrl.isEmpty {
-//                                btnImageUrl = "http://www.topstarnews.net/news/photo/201807/450811_102530_129.jpg"
-//                            }
                             
                             if !btnImageUrl.isEmpty {
                                 IBApi.shared.downloadButtonImage(apiKey: self.apiKey, imageUrl: btnImageUrl) { (response, error) in

@@ -36,6 +36,7 @@ class IBWebViewController: UIViewController {
     var willShowNavigationBarWhenDismiss:Bool = true
     
     @IBOutlet fileprivate weak var wkWebView: WKWebView!
+    @IBOutlet weak var bottomMargin: NSLayoutConstraint!
     
     
     var loadUrl:String = ""
@@ -56,8 +57,6 @@ class IBWebViewController: UIViewController {
             isFirstLoadingFinish = false
             
             wkWebView.load(URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 15.0))
-//            wkWebView.load(URLRequest.init(url: url, cachePolicy: .returnCacheDataDontLoad, timeoutInterval: 15.0))
-//            wkWebView.load(URLRequest.init(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 15.0))
         }
         
         registKeyboardNotifications()
@@ -187,11 +186,52 @@ extension IBWebViewController {
     }
     
     func adjustingHeight(show:Bool, notification:NSNotification) {
-        self.wkWebView.scrollView.scrollRectToVisible(CGRect.init(x: self.wkWebView.scrollView.contentSize.width-1,
-                                                                  y: self.wkWebView.scrollView.contentSize.height-1, 
-                                                                  width: 1,
-                                                                  height: 1),
-                                                      animated: false)
+        
+        if #available(iOS 13.0, *) {
+            self.wkWebView.scrollView.scrollRectToVisible(CGRect.init(x: self.wkWebView.scrollView.contentSize.width-1,
+                                                                      y: self.wkWebView.scrollView.contentSize.height-1, 
+                                                                      width: 1,
+                                                                      height: 1),
+                                                          animated: false)
+        } else {
+            let userInfo = notification.userInfo!
+            let animationDurarion = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+            let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! UInt
+            
+            if(show) {
+                let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+                let offset:CGFloat = self.view.safeAreaInsets.bottom
+                let changeInHeight = (keyboardFrame.height-offset) * (show ? 1 : -1)
+                
+                UIView.animate(withDuration: animationDurarion, delay: 0.0, options: UIViewAnimationOptions(rawValue:curve), animations: { 
+                    self.bottomMargin.constant = changeInHeight
+                }) { (finish) in
+                    if finish {
+                        self.wkWebView.scrollView.scrollRectToVisible(CGRect.init(x: 0,
+                                                                                  y: self.wkWebView.scrollView.contentSize.height-(self.wkWebView.frame.height), 
+                                                                                  width: self.wkWebView.frame.width,
+                                                                                  height: self.wkWebView.frame.height - changeInHeight),
+                                    
+                        animated: false)
+                    }
+                }
+            }
+            else {
+                UIView.animate(withDuration: animationDurarion, delay: 0.0, options: UIViewAnimationOptions(rawValue:curve), animations: { 
+                    self.bottomMargin.constant = 0
+                }) { (finish) in
+                    if finish {
+                        self.wkWebView.scrollView.scrollRectToVisible(CGRect.init(x: 0,
+                                                                                  y: self.wkWebView.scrollView.contentSize.height-self.wkWebView.frame.height, 
+                                                                                  width: self.wkWebView.frame.width,
+                                                                                  height: self.wkWebView.frame.height),
+                                    
+                        animated: false)
+                    }
+                }
+            }
+        }
+        
     }
 }
 
