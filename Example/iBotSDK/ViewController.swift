@@ -11,6 +11,7 @@ import WebKit
 
 import iBotSDK
 
+
 class ViewController: UIViewController {
     
     private var apiKey:String = "205"
@@ -44,6 +45,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func generatorButtonClicked(_ sender: Any) {
+        
         if let button = chatButton {
             button.removeFromSuperview()
             chatButton = nil
@@ -81,7 +83,22 @@ class ViewController: UIViewController {
         
         
         
+//        if let button = chatButton, button is IBotChatButton {
+//            button.removeFromSuperview()
+//            
+//            let window = UIApplication.shared.keyWindow
+//            let frame = window?.convert(button.frame, from: self.view)
+//            
+//            if let frames = frame {
+//                button.frame = frames
+//            }
+//            window?.addSubview(button)
+//            
+//            
+//        }
+        
         if let button = chatButton {
+            button.removeFromSuperview()
             self.view.addSubview(button)
         }
     }

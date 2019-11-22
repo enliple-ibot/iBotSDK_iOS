@@ -13,6 +13,9 @@ public class IBotSDK {
     
     public static let shared: IBotSDK = IBotSDK()
     
+    private var globalIbotButton:IBotChatButton? = nil
+    
+    
     public func showIBotButton(in parent:UIView, apiKey:String) -> IBotChatButton {
         let parentBound = parent.bounds
  
@@ -31,8 +34,10 @@ public class IBotSDK {
                                                                             width: buttonSize,
                                                                             height: buttonSize))
         button.isUserInteractionEnabled = true
+        IBotChatButton.isAnimated = false
         button.expandableViewShowing = true
         button.isShowing = false
+        
         parent.addSubview(button)
         
         button.apiKey = apiKey

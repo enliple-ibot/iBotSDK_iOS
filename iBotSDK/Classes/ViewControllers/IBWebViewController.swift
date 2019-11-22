@@ -53,6 +53,16 @@ class IBWebViewController: UIViewController {
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
         
+//        WKWebsiteDataStore.default().httpCookieStore.getAllCookies { (cookies) in
+//            for cookie in cookies{ 
+//                if cookie.name == "uid" {
+//                    WKWebsiteDataStore.default().httpCookieStore.delete(cookie, completionHandler: nil)
+//                    break
+//                }
+//            }
+//        }
+        
+        
         if let url = URL.init(string: loadUrl) {
             isFirstLoadingFinish = false
             
@@ -141,6 +151,7 @@ extension IBWebViewController: WKNavigationDelegate {
     func getUidFromCookie() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) { 
             var uid = ""
+            
             WKWebsiteDataStore.default().httpCookieStore.getAllCookies { (cookies) in
                 for cookie in cookies{ 
                     if cookie.name == "uid" {
