@@ -30,9 +30,12 @@ public class IBotChatButton: UIView {
     }
     
     
-    public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 128, g: 70, b: 204) {
+//    public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 128, g: 70, b: 204) {
+    public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 41, g: 61, b: 124) {
         didSet {
             subMessageView.backgroundColor = expandableViewBackgroundColor
+            floatButtonView.backgroundColor = expandableViewBackgroundColor
+//            floatButtonView.backgroundColor = UIColor.init(r: 119, g: 88, b: 186)
         }
     }
     
@@ -171,10 +174,13 @@ public class IBotChatButton: UIView {
     
     
     private var floatButtonView: UIImageView = UIImageView.init(frame: .zero)
-    private var buttonShadowView: UIView = UIView.init(frame: .zero)
+    private var topBubbleView: UIImageView = UIImageView.init(frame: .zero)
     private var subMessageView: UIView = UIView.init(frame: .zero)
     private var messageLabel: UILabel = UILabel.init(frame: .zero)
     private var closeButton: UIButton = UIButton.init(frame: .zero)
+    
+    private var buttonShadowView: UIView = UIView.init(frame: .zero)
+    private var rootViewShadow: UIView = UIView.init(frame: .zero)
     
     public static var isAnimated:Bool = false
     private var maximumWidth:CGFloat = 200.0
@@ -216,12 +222,12 @@ public class IBotChatButton: UIView {
             calcMaximumWidth(isInLeftSide: isLeftSide)
             
             if isLeftSide {
-                closeButton.frame = CGRect.init(x: maximumWidth - 35, y: 0, width: 30, height: self.bounds.height)
-                messageLabel.frame = CGRect.init(x: self.bounds.width + 5, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: self.bounds.height)
+                closeButton.frame = CGRect.init(x: maximumWidth - 35, y: 0, width: 30, height: subMessageView.frame.height)
+                messageLabel.frame = CGRect.init(x: self.bounds.width + 5, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: subMessageView.frame.height)
             }
             else {
-                closeButton.frame = CGRect.init(x: 5, y: 0, width: 30, height: self.bounds.height)
-                messageLabel.frame = CGRect.init(x: 40, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: self.bounds.height)
+                closeButton.frame = CGRect.init(x: 5, y: 0, width: 30, height: subMessageView.frame.height)
+                messageLabel.frame = CGRect.init(x: 40, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: subMessageView.frame.height)
             }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
                 self.subMessageView.alpha = 0.0
@@ -262,31 +268,35 @@ public class IBotChatButton: UIView {
         buttonShadowView.isUserInteractionEnabled = true
         buttonShadowView.backgroundColor = .clear
         buttonShadowView.addSubview(floatButtonView)
+        buttonShadowView.addSubview(topBubbleView)
         
-        self.addSubview(subMessageView)
-        self.addSubview(buttonShadowView)
+        rootViewShadow.isUserInteractionEnabled = true
+        rootViewShadow.backgroundColor = .clear
+        rootViewShadow.addSubview(subMessageView)
+        rootViewShadow.addSubview(buttonShadowView)
         
-        subMessageView.frame = self.bounds
+        self.addSubview(rootViewShadow)
+        
+        subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.frame.width, height: self.frame.height*0.8)
         subMessageView.backgroundColor = expandableViewBackgroundColor
         subMessageView.layer.masksToBounds = true
-        subMessageView.layer.cornerRadius = self.bounds.height / 2.0
+        subMessageView.layer.cornerRadius = subMessageView.frame.height / 2.0
         
         floatButtonView.frame = self.bounds
-        floatButtonView.backgroundColor = UIColor.init(r: 119, g: 88, b: 186)
         floatButtonView.layer.masksToBounds = true
         floatButtonView.layer.cornerRadius = (self.bounds.height < self.bounds.width ? self.bounds.height : self.bounds.width) / 2.0
         
-        buttonShadowView.frame = self.bounds
-        buttonShadowView.layer.cornerRadius = (self.bounds.height < self.bounds.width ? self.bounds.height : self.bounds.width) / 2.0
-        buttonShadowView.layer.shadowColor = UIColor.init(r: 0, g: 0, b: 0).cgColor
-        buttonShadowView.layer.shadowOpacity = 0.5
-        buttonShadowView.layer.shadowOffset = CGSize(width: 2, height: 2)
-        buttonShadowView.layer.shadowRadius = 16.0 / 2.0
-//        let dx:CGFloat = -5.0
-//        let rect = bounds.insetBy(dx: dx, dy: dx)
-//        buttonShadowView.layer.shadowPath = UIBezierPath(rect: rect).cgPath
-        floatButtonView.layer.shadowPath = nil      //spread values..
-        
+        let bubbleWidth = (floatButtonView.frame.width * 95.0) / 141.0
+        let bubbleHeight = bubbleWidth * (76.0 / 83.0)
+        topBubbleView.frame = CGRect.init(x: (floatButtonView.frame.width - bubbleWidth) / 2.0, y: -0.3 * bubbleHeight, width: bubbleWidth, height: bubbleHeight)
+        topBubbleView.image = UIImage.init(named: "top_bubble", in: IBotChatButton.podsBundle, compatibleWith: nil)
+        topBubbleView.contentMode = .scaleAspectFit
+
+        rootViewShadow.layer.shadowColor = UIColor.init(r: 68, g: 68, b: 68, a:80).cgColor
+        rootViewShadow.layer.shadowOpacity = 1.0
+        rootViewShadow.layer.shadowOffset = CGSize(width: 0, height: 10)
+        rootViewShadow.layer.shadowRadius = 14.1 / 2.0
+        rootViewShadow.layer.shadowPath = nil
         
         loadDefaultImage()
         if buttonImage != nil && buttonImage!.size != .zero {
@@ -302,7 +312,7 @@ public class IBotChatButton: UIView {
         messageLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .medium)
         messageLabel.textColor = .white
         messageLabel.numberOfLines = 2
-        messageLabel.text = "반가워요~ 인공지능 상담봇 입니다."
+        messageLabel.text = message
         
         subMessageView.addSubview(messageLabel)
         subMessageView.addSubview(closeButton)
@@ -318,7 +328,8 @@ public class IBotChatButton: UIView {
     
     func loadDefaultImage() {
         if buttonImage == nil || buttonImage!.size == .zero {
-            buttonImage = UIImage.init(named: "showbot_icon", in: IBotChatButton.podsBundle, compatibleWith: nil)
+//            buttonImage = UIImage.init(named: "showbot_icon", in: IBotChatButton.podsBundle, compatibleWith: nil)
+            buttonImage = UIImage.init(named: "bot", in: IBotChatButton.podsBundle, compatibleWith: nil)
         }
     }
     
@@ -341,13 +352,13 @@ public class IBotChatButton: UIView {
     
     
     @objc func closeButtonClicked() {
-        //TODO - close button clicked
         if self.subMessageView.alpha >= 1.0 {
             hideSubMessageView()
         }
         
         UserDefaults.standard.set(Date().timeIntervalSince1970 + noShowTimeInterval, forKey: IBOT_USERDEFAULT_NO_SHOW_MESSAGE_ENDDATE_L)
     }
+    
     
     @objc func excuteTapGesture(gesture:UITapGestureRecognizer) {
 
@@ -407,29 +418,27 @@ public class IBotChatButton: UIView {
             return
         }
         
-        defalutFrame = self.frame
-        
+        defalutFrame = self.frame        
         subMessageView.alpha = 0.0
-//        subMessageView.frame = CGRect.init(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
         
         self.frame = defalutFrame
-        subMessageView.frame = self.bounds
+        rootViewShadow.frame = self.bounds
+        subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.frame.width, height: self.frame.height*0.8)
         buttonShadowView.frame = self.bounds
 
         UIView.animate(withDuration: 1.0, delay: 0.0, animations: { 
             self.subMessageView.alpha = 1.0
             
             if self.isLeftSide {
-//                self.subMessageView.frame = CGRect.init(x:0 , y: 0, width: self.maximumWidth, height: self.frame.height)
-                
                 self.frame = CGRect.init(x:self.frame.origin.x , y: self.frame.origin.y, width: self.maximumWidth, height: self.frame.height)
-                self.subMessageView.frame = CGRect.init(x:0 , y: 0, width: self.maximumWidth, height: self.frame.height)
+                self.rootViewShadow.frame = self.bounds
+                self.subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.maximumWidth, height: self.frame.height*0.8)
+                
             }
             else {
-//                self.subMessageView.frame = CGRect.init(x: (self.frame.width-self.maximumWidth), y: 0, width: self.maximumWidth, height: self.frame.height)    
-                
                 self.frame = CGRect.init(x:(self.frame.origin.x + self.frame.width)-self.maximumWidth , y: self.frame.origin.y, width: self.maximumWidth, height: self.frame.height)
-                self.subMessageView.frame = CGRect.init(x:0 , y: 0, width: self.maximumWidth, height: self.frame.height)
+                self.rootViewShadow.frame = self.bounds
+                self.subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.maximumWidth, height: self.frame.height*0.8)
                 self.buttonShadowView.frame = CGRect.init(x:self.maximumWidth-self.buttonShadowView.frame.width,
                                                           y: 0, 
                                                           width: self.buttonShadowView.frame.width, 
@@ -454,19 +463,18 @@ public class IBotChatButton: UIView {
         
         subMessageView.alpha = 1.0
         if self.isLeftSide {
-//            subMessageView.frame = CGRect.init(x:0 , y: 0, width: self.maximumWidth, height: self.frame.height)
             self.frame = CGRect.init(x: self.frame.origin.x, y: self.frame.origin.y, width: self.maximumWidth, height: self.frame.height)
-            self.subMessageView.frame = CGRect.init(x:0 , y: 0, width: self.maximumWidth, height: self.frame.height)
+            rootViewShadow.frame = self.bounds
+            self.subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.maximumWidth, height: self.frame.height*0.8)
             self.buttonShadowView.frame = CGRect.init(x:0,
                                                       y: 0, 
                                                       width: self.buttonShadowView.frame.width, 
                                                       height: self.frame.height)
         }
         else {
-//            subMessageView.frame = CGRect.init(x: (self.frame.width-maximumWidth), y: 0, width: maximumWidth, height: self.frame.height)
-            
             self.frame = CGRect.init(x:(self.frame.origin.x + self.frame.width)-self.maximumWidth , y: self.frame.origin.y, width: self.maximumWidth, height: self.frame.height)
-            self.subMessageView.frame = CGRect.init(x:0 , y: 0, width: self.maximumWidth, height: self.frame.height)
+            rootViewShadow.frame = self.bounds
+            self.subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.maximumWidth, height: self.frame.height*0.8)
             self.buttonShadowView.frame = CGRect.init(x:self.maximumWidth-self.buttonShadowView.frame.width,
                                                       y: 0, 
                                                       width: self.buttonShadowView.frame.width, 
@@ -476,10 +484,10 @@ public class IBotChatButton: UIView {
         
         UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
             self.subMessageView.alpha = 0.0
-//            self.subMessageView.frame = CGRect.init(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
             
             self.frame = self.defalutFrame
-            self.subMessageView.frame = self.bounds
+            self.rootViewShadow.frame = self.bounds
+            self.subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.frame.width, height: self.frame.height*0.8)
             self.buttonShadowView.frame = self.bounds
         }) { (finish) in
         }
