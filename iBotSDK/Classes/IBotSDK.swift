@@ -28,7 +28,7 @@ public class IBotSDK {
             bottomPadding = UIApplication.shared.windows[0].safeAreaInsets.bottom
         }
         
-        let buttonSize:CGFloat = 60.0
+        let buttonSize:CGFloat = 70.0
         let button: IBotChatButton = IBotChatButton.init(frame: CGRect.init(x: parentBound.width - (buttonSize + 10.0),
                                                                             y: parentBound.height - (buttonSize + bottomPadding + 10.0),
                                                                             width: buttonSize,

@@ -92,35 +92,34 @@ public class IBotChatButton: UIView {
                         self.chatbotUrl = json["url"] as? String ?? ""
                         
                         let savedDt = UserDefaults.standard.string(forKey: self.IBOT_USERDEFAULT_BUTTON_MODIFYDATE_S)
-                        let modifyDt = json["modifyDt"] as? String ?? ""
                         
-                        if savedDt != modifyDt {
-                            let tAnimationType = json["animationType"] as? String ?? ""
-                            let tSlideColor = json["slideColor"] as? String ?? ""
-                            let tTextColor = json["textColor"] as? String ?? ""
-                            let tMsg = json["floatingMessage"] as? String ?? ""
-//                            let tFloatingType = json["floatingType"] as? String ?? ""
+                        let modifyDt = json["modifyDt"] as? String ?? ""
+                        let tTooltipFlag = json["tooltipFlag"] as? Bool ?? true
+                        let tFloatingType = json["floatingType"] as? String ?? "D"
+                        let tAnimationType = json["animationType"] as? String ?? ""
+                        let tSlideColor = json["slideColor"] as? String ?? ""
+                        let tTextColor = json["textColor"] as? String ?? ""
+                        let tMsg = json["floatingMessage"] as? String ?? ""
+                        var tFloatingImage = json["floatingImage"] as? String ?? ""
+//                        let tFloatingImageThumbPath = json["floatingImageThumbPath"] as? String ?? ""
+                        
+                        DispatchQueue.main.async {
+                            if !tMsg.isEmpty {
+                                self.message = tMsg.replacingOccurrences(of: "<br/>", with: "\n")
+                            }
                             
-                            var tFloatingImage = json["floatingImage"] as? String ?? ""
-//                            let tFloatingImageThumbPath = json["floatingImageThumbPath"] as? String ?? ""
-//                            tFloatingImage = "http://scm-enliple.iptime.org:5050/admin/floating/205/4NcuVXn9RBG-PdYCxb1m.gif"
+                            if !tTextColor.isEmpty {
+                                self.textColor = UIColor.init(hexString: tTextColor.replacingOccurrences(of: "#", with: ""))
+                            }
                             
-                            DispatchQueue.main.async {
-                                
-                                if !tMsg.isEmpty {
-                                    self.message = tMsg
-                                }
-                                
-                                if !tTextColor.isEmpty {
-                                    self.textColor = UIColor.init(hexString: tTextColor.replacingOccurrences(of: "#", with: ""))
-                                }
-                                
-                                if !tSlideColor.isEmpty {
-                                    self.expandableViewBackgroundColor = UIColor.init(hexString: tSlideColor.replacingOccurrences(of: "#", with: ""))
-                                }
-                                
-                                self.animationType = IBAnimationType(rawValue: tAnimationType) ?? IBAnimationType.fadeIn
-                                
+                            if !tSlideColor.isEmpty {
+                                self.expandableViewBackgroundColor = UIColor.init(hexString: tSlideColor.replacingOccurrences(of: "#", with: ""))
+                            }
+                            
+                            self.animationType = IBAnimationType(rawValue: tAnimationType) ?? IBAnimationType.fadeIn
+                            self.topBubbleView.isHidden = !tTooltipFlag
+                            
+                            if savedDt != modifyDt {
                                 if !tFloatingImage.isEmpty {
                                     if tFloatingImage.contains(".gif") {
                                         let gifImage = UIImage.gifImageWithURL(tFloatingImage)
@@ -151,15 +150,13 @@ public class IBotChatButton: UIView {
                                 else {
                                     self.isShowing = !self.chatbotUrl.isEmpty
                                 }
+                                
+                                UserDefaults.standard.set(tFloatingImage, forKey: self.IBOT_USERDEFAULT_BUTTON_IMAGE_S)
+                                UserDefaults.standard.set(modifyDt, forKey: self.IBOT_USERDEFAULT_BUTTON_MODIFYDATE_S)
                             }
-                            
-                            UserDefaults.standard.set(tFloatingImage, forKey: self.IBOT_USERDEFAULT_BUTTON_IMAGE_S)
-                            UserDefaults.standard.set(modifyDt, forKey: self.IBOT_USERDEFAULT_BUTTON_MODIFYDATE_S)
-                        }
-                        else {
-                            let imageUrl = UserDefaults.standard.string(forKey: self.IBOT_USERDEFAULT_BUTTON_IMAGE_S)
-                            
-                            DispatchQueue.main.async {
+                            else {
+                                let imageUrl = UserDefaults.standard.string(forKey: self.IBOT_USERDEFAULT_BUTTON_IMAGE_S)
+                                
                                 if (imageUrl?.isEmpty ?? true) {
                                     self.loadDefaultImage()
                                 }
@@ -172,7 +169,7 @@ public class IBotChatButton: UIView {
                                         self.loadDefaultImage()
                                     }
                                 }
-                                self.animationType = IBAnimationType.fadeIn
+                                
                                 self.isShowing = !self.chatbotUrl.isEmpty
                             }
                         }
@@ -332,10 +329,10 @@ public class IBotChatButton: UIView {
             floatButtonView.contentMode = .scaleAspectFit
         } 
         
-        setUpCloseButtonImage()
-        closeButton.isUserInteractionEnabled = true
-        closeButton.backgroundColor = .clear
-        closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
+//        setUpCloseButtonImage()
+//        closeButton.isUserInteractionEnabled = true
+//        closeButton.backgroundColor = .clear
+//        closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
         
         messageLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .medium)
         messageLabel.textColor = .white
@@ -343,7 +340,7 @@ public class IBotChatButton: UIView {
         messageLabel.text = message
         
         subMessageView.addSubview(messageLabel)
-        subMessageView.addSubview(closeButton)
+//        subMessageView.addSubview(closeButton)
         
         updateTouchEvent()
     }
