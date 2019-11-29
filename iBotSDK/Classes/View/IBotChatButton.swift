@@ -10,7 +10,9 @@ import UIKit
 public class IBotChatButton: UIView {
     
     fileprivate let IBOT_USERDEFAULT_BUTTON_MODIFYDATE_S = "IBOT_USERDEFAULT_BUTTON_MODIFYDATE_S"
+    fileprivate let IBOT_USERDEFAULT_BUTTON_IMAGE_S = "IBOT_USERDEFAULT_BUTTON_IMAGE_S"
     fileprivate let IBOT_USERDEFAULT_NO_SHOW_MESSAGE_ENDDATE_L = "IBOT_USERDEFAULT_NO_SHOW_MESSAGE_ENDDATE_L"
+    
     fileprivate let noShowTimeInterval = 3.0 * 24.0 * 3600.0
     
     private static var podsBundle: Bundle {
@@ -99,8 +101,9 @@ public class IBotChatButton: UIView {
                             let tMsg = json["floatingMessage"] as? String ?? ""
 //                            let tFloatingType = json["floatingType"] as? String ?? ""
                             
-                            let tFloatingImage = json["floatingImage"] as? String ?? ""
+                            var tFloatingImage = json["floatingImage"] as? String ?? ""
 //                            let tFloatingImageThumbPath = json["floatingImageThumbPath"] as? String ?? ""
+//                            tFloatingImage = "http://scm-enliple.iptime.org:5050/admin/floating/205/4NcuVXn9RBG-PdYCxb1m.gif"
                             
                             DispatchQueue.main.async {
                                 
@@ -119,31 +122,56 @@ public class IBotChatButton: UIView {
                                 self.animationType = IBAnimationType(rawValue: tAnimationType) ?? IBAnimationType.fadeIn
                                 
                                 if !tFloatingImage.isEmpty {
-                                    IBApi.shared.downloadButtonImage(apiKey: self.apiKey, imageUrl: tFloatingImage) { (response, error) in
-                                        if let result = response, (result["result"] as? String ?? "") == "success" {
-                                            let imageFilePath = IBApi.shared.getButtonImageFilePath(apiKey: self.apiKey)
-                                            
-                                            DispatchQueue.main.async {
-                                                do {
-                                                    let imageData = try Data.init(contentsOf: imageFilePath)
-                                                    self.buttonImage = UIImage.init(data: imageData)
-                                                }
-                                                catch {}
+                                    if tFloatingImage.contains(".gif") {
+                                        let gifImage = UIImage.gifImageWithURL(tFloatingImage)
+                                        DispatchQueue.main.async {
+                                            self.buttonImage = gifImage
+                                            self.isShowing = !self.chatbotUrl.isEmpty
+                                        }
+                                    }
+                                    else {
+                                        IBApi.shared.downloadButtonImage(apiKey: self.apiKey, imageUrl: tFloatingImage) { (response, error) in
+                                            if let result = response, (result["result"] as? String ?? "") == "success" {
+                                                let imageFilePath = IBApi.shared.getButtonImageFilePath(apiKey: self.apiKey)
                                                 
-                                                self.isShowing = !self.chatbotUrl.isEmpty
+                                                DispatchQueue.main.async {
+                                                    do {
+                                                        let imageData = try Data.init(contentsOf: imageFilePath)
+                                                        self.buttonImage = UIImage.init(data: imageData)
+                                                    }
+                                                    catch {}
+                                                    
+                                                    self.isShowing = !self.chatbotUrl.isEmpty
+                                                }
                                             }
                                         }
                                     }
+                                    
                                 }
                                 else {
                                     self.isShowing = !self.chatbotUrl.isEmpty
                                 }
                             }
                             
+                            UserDefaults.standard.set(tFloatingImage, forKey: self.IBOT_USERDEFAULT_BUTTON_IMAGE_S)
                             UserDefaults.standard.set(modifyDt, forKey: self.IBOT_USERDEFAULT_BUTTON_MODIFYDATE_S)
                         }
                         else {
+                            let imageUrl = UserDefaults.standard.string(forKey: self.IBOT_USERDEFAULT_BUTTON_IMAGE_S)
+                            
                             DispatchQueue.main.async {
+                                if (imageUrl?.isEmpty ?? true) {
+                                    self.loadDefaultImage()
+                                }
+                                else {
+                                    do {
+                                        let imageData = try Data.init(contentsOf: IBApi.shared.getButtonImageFilePath(apiKey: self.apiKey))
+                                        self.buttonImage = UIImage.init(data: imageData)
+                                    }
+                                    catch {
+                                        self.loadDefaultImage()
+                                    }
+                                }
                                 self.animationType = IBAnimationType.fadeIn
                                 self.isShowing = !self.chatbotUrl.isEmpty
                             }
