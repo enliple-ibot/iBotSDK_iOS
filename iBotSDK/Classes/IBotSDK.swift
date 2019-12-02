@@ -5,9 +5,6 @@
 //  Created by enliple on 16/10/2019.
 //
 
-import Foundation
-import AdSupport
-
 
 public class IBotSDK {
     
@@ -23,7 +20,7 @@ public class IBotSDK {
         
         if let window = UIApplication.shared.keyWindow {
             bottomPadding = window.safeAreaInsets.bottom
-        }
+        } 
         else if UIApplication.shared.windows.count > 0 {
             bottomPadding = UIApplication.shared.windows[0].safeAreaInsets.bottom
         }

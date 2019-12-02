@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iBotSDK'
-  s.version          = '0.0.13'
+  s.version          = '0.1.0'
   s.summary          = 'iBotSDK for iOS'
 
   
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'http://brand.istore.camp/'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'enliple' => 'ibot@enliple.com' }
-  s.source           = { :git => 'https://github.com/enliple-ibot/iBotSDK_iOS.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/enliple-ibot/iBotSDK_iOS.git', :tag => s.version }
 
   s.ios.deployment_target = '11.0'
   s.swift_version = '4.0'

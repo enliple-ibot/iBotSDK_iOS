@@ -73,6 +73,13 @@ public class IBotChatButton: UIView {
         }
     }
     
+//    private var message:String = "반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.\n인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다." {
+//        didSet {
+//            self.messageLabel.text = "반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.\n인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다."
+//        }
+//    }
+    
+    
     private var floatingType:String = "D"
     
     private var animationType:IBAnimationType = .slideLeftToRight
@@ -201,7 +208,7 @@ public class IBotChatButton: UIView {
     private var floatButtonView: UIImageView = UIImageView.init(frame: .zero)
     private var topBubbleView: UIImageView = UIImageView.init(frame: .zero)
     private var subMessageView: UIView = UIView.init(frame: .zero)
-    private var messageLabel: UILabel = UILabel.init(frame: .zero)
+    private var messageLabel: MarqueeLabel = MarqueeLabel.init(frame: .zero)
     private var closeButton: UIButton = UIButton.init(frame: .zero)
     
     private var buttonShadowView: UIView = UIView.init(frame: .zero)
@@ -248,11 +255,13 @@ public class IBotChatButton: UIView {
             
             if isLeftSide {
                 closeButton.frame = CGRect.init(x: maximumWidth - 35, y: 0, width: 30, height: subMessageView.frame.height)
-                messageLabel.frame = CGRect.init(x: self.bounds.width + 5, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: subMessageView.frame.height)
+//                messageLabel.frame = CGRect.init(x: self.bounds.width + 5, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: subMessageView.frame.height)
+                messageLabel.frame = CGRect.init(x: self.bounds.width + 5, y: 0, width: maximumWidth - (self.bounds.width + 30), height: subMessageView.frame.height)
             }
             else {
                 closeButton.frame = CGRect.init(x: 5, y: 0, width: 30, height: subMessageView.frame.height)
-                messageLabel.frame = CGRect.init(x: 40, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: subMessageView.frame.height)
+//                messageLabel.frame = CGRect.init(x: 40, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: subMessageView.frame.height)
+                messageLabel.frame = CGRect.init(x: 20, y: 0, width: maximumWidth - (self.bounds.width + 30), height: subMessageView.frame.height)
             }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
                 self.subMessageView.alpha = 0.0
@@ -338,6 +347,8 @@ public class IBotChatButton: UIView {
         messageLabel.textColor = .white
         messageLabel.numberOfLines = 2
         messageLabel.text = message
+        messageLabel.type = .left
+        messageLabel.holdScrolling = true
         
         subMessageView.addSubview(messageLabel)
 //        subMessageView.addSubview(closeButton)
@@ -473,7 +484,11 @@ public class IBotChatButton: UIView {
             self.setNeedsDisplay()
         }) { (finish) in
              if finish {
+                self.messageLabel.holdScrolling = false
+                self.messageLabel.restartLabel()
+                
                 Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { (t2) in
+                    self.messageLabel.holdScrolling = true
                     self.hideSubMessageView()
                 }
             }
