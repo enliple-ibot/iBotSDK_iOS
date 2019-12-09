@@ -51,6 +51,9 @@ button.openInModal = false
 // dragging
 button.canDrag = true
 
+// change button default background color
+button.backgroundColor = .white
+
 ```
 
 

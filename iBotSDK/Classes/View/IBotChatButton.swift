@@ -32,14 +32,12 @@ public class IBotChatButton: UIView {
     }
     
     
-//    public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 128, g: 70, b: 204) {
     public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 41, g: 61, b: 124) {
         didSet {
             subMessageView.backgroundColor = expandableViewBackgroundColor
-            floatButtonView.backgroundColor = expandableViewBackgroundColor
-//            floatButtonView.backgroundColor = UIColor.init(r: 119, g: 88, b: 186)
         }
     }
+    
     
     
     public var buttonImage:UIImage? = nil {
@@ -56,7 +54,19 @@ public class IBotChatButton: UIView {
             self.isHidden = !isShowing
             
             if isShowing {
-                IBViewAnimation.shared.animate(with: self, type: animationType)
+                
+                IBViewAnimation.shared.animate(with: self, type: animationType) { (finish) in
+                    self.showShadow { (finish) in
+                        if finish && !IBotChatButton.isAnimated{
+                            IBotChatButton.isAnimated = true
+                            
+                            self.subMessageView.alpha = 0.0
+                            self.showSubMessageView()
+                        }
+                    }
+                }
+                
+                
             }
         }
     }
@@ -73,12 +83,6 @@ public class IBotChatButton: UIView {
         }
     }
     
-//    private var message:String = "반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.\n인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다." {
-//        didSet {
-//            self.messageLabel.text = "반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.반갑습니다.\n인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다.인공지능 상담봇입니다."
-//        }
-//    }
-    
     
     private var floatingType:String = "D"
     
@@ -86,6 +90,11 @@ public class IBotChatButton: UIView {
     
     open var openInModal:Bool = true
     open var canDrag:Bool = true
+    open var buttonBgroundColor:UIColor = UIColor.init(r: 41, g: 61, b: 124) {
+        didSet {
+            floatButtonView.backgroundColor = buttonBgroundColor
+        }
+    }
     
     public var apiKey:String = "" {
         didSet {
@@ -102,13 +111,11 @@ public class IBotChatButton: UIView {
                         
                         let modifyDt = json["modifyDt"] as? String ?? ""
                         let tTooltipFlag = json["tooltipFlag"] as? Bool ?? true
-                        let tFloatingType = json["floatingType"] as? String ?? "D"
                         let tAnimationType = json["animationType"] as? String ?? ""
                         let tSlideColor = json["slideColor"] as? String ?? ""
                         let tTextColor = json["textColor"] as? String ?? ""
                         let tMsg = json["floatingMessage"] as? String ?? ""
-                        var tFloatingImage = json["floatingImage"] as? String ?? ""
-//                        let tFloatingImageThumbPath = json["floatingImageThumbPath"] as? String ?? ""
+                        let tFloatingImage = json["floatingImage"] as? String ?? ""
                         
                         DispatchQueue.main.async {
                             if !tMsg.isEmpty {
@@ -124,7 +131,9 @@ public class IBotChatButton: UIView {
                             }
                             
                             self.animationType = IBAnimationType(rawValue: tAnimationType) ?? IBAnimationType.fadeIn
+                            
                             self.topBubbleView.isHidden = !tTooltipFlag
+                            
                             
                             if savedDt != modifyDt {
                                 if !tFloatingImage.isEmpty {
@@ -248,24 +257,17 @@ public class IBotChatButton: UIView {
         super.layoutSubviews()
         
         if !IBotChatButton.isAnimated {
-            IBotChatButton.isAnimated = true
             
             isLeftSide = self.frame.midX < UIScreen.main.bounds.midX
             calcMaximumWidth(isInLeftSide: isLeftSide)
             
             if isLeftSide {
                 closeButton.frame = CGRect.init(x: maximumWidth - 35, y: 0, width: 30, height: subMessageView.frame.height)
-//                messageLabel.frame = CGRect.init(x: self.bounds.width + 5, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: subMessageView.frame.height)
                 messageLabel.frame = CGRect.init(x: self.bounds.width + 5, y: 0, width: maximumWidth - (self.bounds.width + 30), height: subMessageView.frame.height)
             }
             else {
                 closeButton.frame = CGRect.init(x: 5, y: 0, width: 30, height: subMessageView.frame.height)
-//                messageLabel.frame = CGRect.init(x: 40, y: 0, width: maximumWidth - (self.bounds.width + 10 + closeButton.frame.width + 5), height: subMessageView.frame.height)
                 messageLabel.frame = CGRect.init(x: 20, y: 0, width: maximumWidth - (self.bounds.width + 30), height: subMessageView.frame.height)
-            }
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
-                self.subMessageView.alpha = 0.0
-                self.showSubMessageView()
             }
         }
         
@@ -319,29 +321,19 @@ public class IBotChatButton: UIView {
         floatButtonView.frame = self.bounds
         floatButtonView.layer.masksToBounds = true
         floatButtonView.layer.cornerRadius = (self.bounds.height < self.bounds.width ? self.bounds.height : self.bounds.width) / 2.0
+        floatButtonView.backgroundColor = buttonBgroundColor
         
         let bubbleWidth = (floatButtonView.frame.width * 95.0) / 141.0
         let bubbleHeight = bubbleWidth * (76.0 / 83.0)
         topBubbleView.frame = CGRect.init(x: (floatButtonView.frame.width - bubbleWidth) / 2.0, y: -0.3 * bubbleHeight, width: bubbleWidth, height: bubbleHeight)
         topBubbleView.image = UIImage.init(named: "top_bubble", in: IBotChatButton.podsBundle, compatibleWith: nil)
         topBubbleView.contentMode = .scaleAspectFit
-
-        rootViewShadow.layer.shadowColor = UIColor.init(r: 68, g: 68, b: 68, a:80).cgColor
-        rootViewShadow.layer.shadowOpacity = 1.0
-        rootViewShadow.layer.shadowOffset = CGSize(width: 0, height: 10)
-        rootViewShadow.layer.shadowRadius = 14.1 / 2.0
-        rootViewShadow.layer.shadowPath = nil
         
         loadDefaultImage()
         if buttonImage != nil && buttonImage!.size != .zero {
             floatButtonView.image = buttonImage
             floatButtonView.contentMode = .scaleAspectFit
         } 
-        
-//        setUpCloseButtonImage()
-//        closeButton.isUserInteractionEnabled = true
-//        closeButton.backgroundColor = .clear
-//        closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
         
         messageLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .medium)
         messageLabel.textColor = .white
@@ -351,7 +343,6 @@ public class IBotChatButton: UIView {
         messageLabel.holdScrolling = true
         
         subMessageView.addSubview(messageLabel)
-//        subMessageView.addSubview(closeButton)
         
         updateTouchEvent()
     }
@@ -364,14 +355,8 @@ public class IBotChatButton: UIView {
     
     func loadDefaultImage() {
         if buttonImage == nil || buttonImage!.size == .zero {
-//            buttonImage = UIImage.init(named: "showbot_icon", in: IBotChatButton.podsBundle, compatibleWith: nil)
             buttonImage = UIImage.init(named: "bot", in: IBotChatButton.podsBundle, compatibleWith: nil)
         }
-    }
-    
-    func setUpCloseButtonImage() {
-        closeButton.setImage(UIImage.init(named: "closeWhiteIco", in: IBotChatButton.podsBundle, compatibleWith: nil),
-                             for: .normal)
     }
     
     func calcMaximumWidth(isInLeftSide:Bool) {
@@ -443,6 +428,28 @@ public class IBotChatButton: UIView {
         
     }
     
+    private func showShadow(completion: ((Bool) -> Void)? = nil) {
+        
+        self.rootViewShadow.layer.shadowColor = UIColor.init(r: 68, g: 68, b: 68, a:80).cgColor
+        self.rootViewShadow.layer.shadowOpacity = 1.0
+        self.rootViewShadow.layer.shadowOffset = CGSize(width: 0, height: 10)
+        self.rootViewShadow.layer.shadowRadius = 14.1 / 2.0
+        self.rootViewShadow.layer.shadowPath = nil
+        
+        let shadowAnimation = CABasicAnimation(keyPath: "shadowOpacity")
+        shadowAnimation.fillMode = kCAFillModeForwards
+        shadowAnimation.isRemovedOnCompletion = false
+        shadowAnimation.fromValue = 0.0
+        shadowAnimation.toValue = 1.0
+        shadowAnimation.duration = 0.5
+        
+        self.rootViewShadow.layer.add(shadowAnimation, forKey: shadowAnimation.keyPath)
+        self.rootViewShadow.layer.shadowOpacity = 0.0
+        
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (t) in
+             completion?(true)
+        }
+    }
     
     
     public func showSubMessageView() {

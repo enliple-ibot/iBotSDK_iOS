@@ -14,7 +14,7 @@ import iBotSDK
 
 class ViewController: UIViewController {
     
-    private var apiKey:String = "205"
+    private var apiKey:String = "YOUR_API_KEY"
     
     @IBOutlet weak var openTypeSegment: UISegmentedControl!
     @IBOutlet weak var positionSegment: UISegmentedControl!
@@ -81,21 +81,6 @@ class ViewController: UIViewController {
                                             height: chatButton!.frame.size.height)
         }
         
-        
-        
-//        if let button = chatButton, button is IBotChatButton {
-//            button.removeFromSuperview()
-//            
-//            let window = UIApplication.shared.keyWindow
-//            let frame = window?.convert(button.frame, from: self.view)
-//            
-//            if let frames = frame {
-//                button.frame = frames
-//            }
-//            window?.addSubview(button)
-//            
-//            
-//        }
         
         if let button = chatButton {
             button.removeFromSuperview()

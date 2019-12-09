@@ -12,7 +12,6 @@ typealias IBApiCallback = (_ result:[String: Any]?, _ error:Error?) -> Void
 class IBApi {
     let timeOutInterval:TimeInterval = 15
     
-//    let HOST = "http://scm-enliple.iptime.org:8880"
     let HOST = "https://chatapi.istore.camp"
     
     

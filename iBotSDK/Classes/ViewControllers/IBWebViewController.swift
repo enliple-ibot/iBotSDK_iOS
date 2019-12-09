@@ -53,15 +53,6 @@ class IBWebViewController: UIViewController {
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
         
-//        WKWebsiteDataStore.default().httpCookieStore.getAllCookies { (cookies) in
-//            for cookie in cookies{ 
-//                if cookie.name == "uid" {
-//                    WKWebsiteDataStore.default().httpCookieStore.delete(cookie, completionHandler: nil)
-//                    break
-//                }
-//            }
-//        }
-        
         
         if let url = URL.init(string: loadUrl) {
             isFirstLoadingFinish = false
@@ -78,7 +69,7 @@ class IBWebViewController: UIViewController {
 
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        // WKWebView actions sheets workaround
+        
         if presentedViewController != nil && lastPresentedController != presentedViewController  {
             lastPresentedController = presentedViewController
             presentedViewController?.dismiss(animated: flag, completion: {
