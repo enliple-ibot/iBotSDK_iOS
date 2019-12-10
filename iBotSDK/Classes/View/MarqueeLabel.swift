@@ -9,7 +9,7 @@ import QuartzCore
 
 @IBDesignable
 
-open class MarqueeLabel: UILabel, CAAnimationDelegate {
+open class IBMarqueeLabel: UILabel, CAAnimationDelegate {
     
     /**
      An enum that defines the types of `MarqueeLabel` scrolling
@@ -167,7 +167,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
         didSet {
             if tapToScroll != oldValue {
                 if tapToScroll {
-                    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(MarqueeLabel.labelWasTapped(_:)))
+                    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(IBMarqueeLabel.labelWasTapped(_:)))
                     self.addGestureRecognizer(tapRecognizer)
                     isUserInteractionEnabled = true
                 } else {
@@ -378,7 +378,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
      - SeeAlso: controllerViewWillAppear:
      */
     open class func restartLabelsOfController(_ controller: UIViewController) {
-        MarqueeLabel.notifyController(controller, message: .Restart)
+        IBMarqueeLabel.notifyController(controller, message: .Restart)
     }
     
     /**
@@ -391,7 +391,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
      - SeeAlso: controllerViewDidAppear
      */
     open class func controllerViewWillAppear(_ controller: UIViewController) {
-        MarqueeLabel.restartLabelsOfController(controller)
+        IBMarqueeLabel.restartLabelsOfController(controller)
     }
     
     /**
@@ -404,7 +404,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
      - SeeAlso: controllerViewWillAppear
      */
     open class func controllerViewDidAppear(_ controller: UIViewController) {
-        MarqueeLabel.restartLabelsOfController(controller)
+        IBMarqueeLabel.restartLabelsOfController(controller)
     }
     
     /**
@@ -416,7 +416,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
      - SeeAlso: labelize
      */
     open class func controllerLabelsLabelize(_ controller: UIViewController) {
-        MarqueeLabel.notifyController(controller, message: .Labelize)
+        IBMarqueeLabel.notifyController(controller, message: .Labelize)
     }
     
     /**
@@ -428,7 +428,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
      - SeeAlso: labelize
      */
     open class func controllerLabelsAnimate(_ controller: UIViewController) {
-        MarqueeLabel.notifyController(controller, message: .Animate)
+        IBMarqueeLabel.notifyController(controller, message: .Animate)
     }
 
     
@@ -501,13 +501,13 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
         
         // Add notification observers
         // Custom class notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(MarqueeLabel.restartForViewController(_:)), name: NSNotification.Name(rawValue: MarqueeKeys.Restart.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(MarqueeLabel.labelizeForController(_:)), name: NSNotification.Name(rawValue: MarqueeKeys.Labelize.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(MarqueeLabel.animateForController(_:)), name: NSNotification.Name(rawValue: MarqueeKeys.Animate.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(IBMarqueeLabel.restartForViewController(_:)), name: NSNotification.Name(rawValue: MarqueeKeys.Restart.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(IBMarqueeLabel.labelizeForController(_:)), name: NSNotification.Name(rawValue: MarqueeKeys.Labelize.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(IBMarqueeLabel.animateForController(_:)), name: NSNotification.Name(rawValue: MarqueeKeys.Animate.rawValue), object: nil)
         // UIApplication state notifications
         
-        NotificationCenter.default.addObserver(self, selector: #selector(MarqueeLabel.restartLabel), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(MarqueeLabel.shutdownLabel), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(IBMarqueeLabel.restartLabel), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(IBMarqueeLabel.shutdownLabel), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
     }
     
     override open func awakeFromNib() {

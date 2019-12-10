@@ -52,7 +52,7 @@ button.openInModal = false
 button.canDrag = true
 
 // change button default background color
-button.backgroundColor = .white
+button.buttonBackgroundColor = .white
 
 ```
 

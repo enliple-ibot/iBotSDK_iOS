@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iO4-Hn-jnb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iO4-Hn-jnb">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,10 +12,6 @@
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="iBotSDK_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -96,24 +93,25 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="QLr-u8-bzr" firstAttribute="leading" secondItem="tuo-aN-XxU" secondAttribute="leading" id="Cyo-0P-LWs"/>
-                            <constraint firstAttribute="trailing" secondItem="QLr-u8-bzr" secondAttribute="trailing" constant="10" id="HHW-Nt-ON7"/>
+                            <constraint firstItem="Sv9-ai-LGn" firstAttribute="trailing" secondItem="QLr-u8-bzr" secondAttribute="trailing" constant="10" id="HHW-Nt-ON7"/>
                             <constraint firstItem="GjM-xP-qyu" firstAttribute="top" secondItem="jo0-EE-MPf" secondAttribute="bottom" constant="20" id="IOE-he-vhY"/>
-                            <constraint firstAttribute="trailing" secondItem="tuo-aN-XxU" secondAttribute="trailing" constant="10" id="Mrx-r7-AHg"/>
+                            <constraint firstItem="Sv9-ai-LGn" firstAttribute="trailing" secondItem="tuo-aN-XxU" secondAttribute="trailing" constant="10" id="Mrx-r7-AHg"/>
                             <constraint firstItem="jo0-EE-MPf" firstAttribute="leading" secondItem="tuo-aN-XxU" secondAttribute="leading" id="Osg-Dz-xIm"/>
                             <constraint firstItem="D1R-4H-83g" firstAttribute="leading" secondItem="wB3-6c-Ynk" secondAttribute="leading" id="WXr-mY-XWu"/>
-                            <constraint firstAttribute="trailing" secondItem="GjM-xP-qyu" secondAttribute="trailing" constant="10" id="aFr-lS-dpd"/>
-                            <constraint firstItem="wB3-6c-Ynk" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="cQZ-0r-Ctw"/>
+                            <constraint firstItem="Sv9-ai-LGn" firstAttribute="trailing" secondItem="GjM-xP-qyu" secondAttribute="trailing" constant="10" id="aFr-lS-dpd"/>
+                            <constraint firstItem="wB3-6c-Ynk" firstAttribute="leading" secondItem="Sv9-ai-LGn" secondAttribute="leading" constant="10" id="cQZ-0r-Ctw"/>
                             <constraint firstItem="jo0-EE-MPf" firstAttribute="centerY" secondItem="D1R-4H-83g" secondAttribute="centerY" id="ffN-MO-XOe"/>
-                            <constraint firstItem="Yx7-ZY-9sv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="itz-tt-1Ut"/>
+                            <constraint firstItem="Yx7-ZY-9sv" firstAttribute="leading" secondItem="Sv9-ai-LGn" secondAttribute="leading" constant="10" id="itz-tt-1Ut"/>
                             <constraint firstItem="QLr-u8-bzr" firstAttribute="centerY" secondItem="wB3-6c-Ynk" secondAttribute="centerY" id="jag-Hn-Uvu"/>
                             <constraint firstItem="QLr-u8-bzr" firstAttribute="top" secondItem="tuo-aN-XxU" secondAttribute="bottom" constant="20" id="nbw-Vc-IIW"/>
-                            <constraint firstAttribute="trailing" secondItem="jo0-EE-MPf" secondAttribute="trailing" constant="10" id="rNg-4r-55W"/>
-                            <constraint firstItem="tuo-aN-XxU" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="sIx-8V-P7m"/>
+                            <constraint firstItem="Sv9-ai-LGn" firstAttribute="trailing" secondItem="jo0-EE-MPf" secondAttribute="trailing" constant="10" id="rNg-4r-55W"/>
+                            <constraint firstItem="tuo-aN-XxU" firstAttribute="top" secondItem="Sv9-ai-LGn" secondAttribute="top" constant="20" id="sIx-8V-P7m"/>
                             <constraint firstItem="jo0-EE-MPf" firstAttribute="top" secondItem="QLr-u8-bzr" secondAttribute="bottom" constant="20" id="w25-J5-hIV"/>
                             <constraint firstItem="tuo-aN-XxU" firstAttribute="centerY" secondItem="Yx7-ZY-9sv" secondAttribute="centerY" id="wIq-Jc-KDR"/>
-                            <constraint firstItem="GjM-xP-qyu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="xgu-ky-xvQ"/>
-                            <constraint firstItem="tuo-aN-XxU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="120" id="zMN-ta-Nyi"/>
+                            <constraint firstItem="GjM-xP-qyu" firstAttribute="leading" secondItem="Sv9-ai-LGn" secondAttribute="leading" constant="10" id="xgu-ky-xvQ"/>
+                            <constraint firstItem="tuo-aN-XxU" firstAttribute="leading" secondItem="Sv9-ai-LGn" secondAttribute="leading" constant="120" id="zMN-ta-Nyi"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Sv9-ai-LGn"/>
                     </view>
                     <navigationItem key="navigationItem" id="wDg-zp-SSH"/>
                     <connections>
@@ -135,7 +133,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="nHC-eM-Rt1"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="6FO-J0-zvX"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Xi-1w-B3Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

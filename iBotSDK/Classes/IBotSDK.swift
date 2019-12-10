@@ -5,15 +5,14 @@
 //  Created by enliple on 16/10/2019.
 //
 
-
-public class IBotSDK {
+@objc public class IBotSDK: NSObject {
     
-    public static let shared: IBotSDK = IBotSDK()
-    
+    @objc public static let shared: IBotSDK = IBotSDK()
+     
     private var globalIbotButton:IBotChatButton? = nil
     
     
-    public func showIBotButton(in parent:UIView, apiKey:String) -> IBotChatButton {
+    @objc public func showIBotButton(in parent:UIView, apiKey:String) -> IBotChatButton {
         let parentBound = parent.bounds
  
         var bottomPadding:CGFloat = 0.0
@@ -43,7 +42,7 @@ public class IBotSDK {
     }
     
     
-    public func showChatbotInBrowser(apiKey:String) {
+    @objc public func showChatbotInBrowser(apiKey:String) {
         
         IBApi.shared.getIBotInfo(apiKey: apiKey, completionHandler: { (jsonDict, error) in
             if let json = jsonDict {

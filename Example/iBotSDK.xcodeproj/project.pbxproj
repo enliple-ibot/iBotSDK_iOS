@@ -15,6 +15,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		6A1D2A70235D4D57001F9408 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1D2A6F235D4D56001F9408 /* WebKit.framework */; };
+		6AE6F194239F1F5E0036963F /* ObjCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE6F193239F1F5E0036963F /* ObjCViewController.m */; };
 		8632ACEBD0D955483387400B /* Pods_iBotSDK_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F050F6D611DB3A9CF6B9740E /* Pods_iBotSDK_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,8 @@
 		6A1D2A6F235D4D56001F9408 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6A4C276518DFF6B902BAB9DE /* Pods-iBotSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iBotSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-iBotSDK_Example/Pods-iBotSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6AB70370CFA11D03D1DFC56F /* Pods_iBotSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iBotSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AE6F192239F1F5E0036963F /* ObjCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCViewController.h; sourceTree = "<group>"; };
+		6AE6F193239F1F5E0036963F /* ObjCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCViewController.m; sourceTree = "<group>"; };
 		8644F2FAE4036395ABFA5E73 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F050F6D611DB3A9CF6B9740E /* Pods_iBotSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iBotSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -109,6 +112,8 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				6AE6F192239F1F5E0036963F /* ObjCViewController.h */,
+				6AE6F193239F1F5E0036963F /* ObjCViewController.m */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -218,7 +223,7 @@
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = GL4YVZY43K;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1120;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -273,8 +278,6 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iBotSDK_Tests/Pods-iBotSDK_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FBSnapshotTestCase/FBSnapshotTestCase.framework",
@@ -283,8 +286,6 @@
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
@@ -345,15 +346,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iBotSDK_Example/Pods-iBotSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/iBotSDK/iBotSDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iBotSDK.framework",
 			);
@@ -371,6 +368,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				6AE6F194239F1F5E0036963F /* ObjCViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +514,7 @@
 			baseConfigurationReference = 4158E940242C05DEB71AAA2A /* Pods-iBotSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = GL4YVZY43K;
 				INFOPLIST_FILE = iBotSDK/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -523,6 +522,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -533,6 +533,7 @@
 			baseConfigurationReference = 6A4C276518DFF6B902BAB9DE /* Pods-iBotSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = GL4YVZY43K;
 				INFOPLIST_FILE = iBotSDK/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

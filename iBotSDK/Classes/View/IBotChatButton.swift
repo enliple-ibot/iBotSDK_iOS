@@ -7,7 +7,7 @@
 import UIKit
 
 @IBDesignable
-public class IBotChatButton: UIView {
+@objc public class IBotChatButton: UIView {
     
     fileprivate let IBOT_USERDEFAULT_BUTTON_MODIFYDATE_S = "IBOT_USERDEFAULT_BUTTON_MODIFYDATE_S"
     fileprivate let IBOT_USERDEFAULT_BUTTON_IMAGE_S = "IBOT_USERDEFAULT_BUTTON_IMAGE_S"
@@ -25,14 +25,14 @@ public class IBotChatButton: UIView {
     }
     
      
-    public var expandableViewShowing:Bool = true {
+    @objc public var expandableViewShowing:Bool = true {
         didSet {
             IBotChatButton.isAnimated = IBotChatButton.isAnimated == false ? !expandableViewShowing : IBotChatButton.isAnimated
         }
     }
     
     
-    public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 41, g: 61, b: 124) {
+    @objc public var expandableViewBackgroundColor:UIColor = UIColor.init(r: 41, g: 61, b: 124) {
         didSet {
             subMessageView.backgroundColor = expandableViewBackgroundColor
         }
@@ -40,7 +40,7 @@ public class IBotChatButton: UIView {
     
     
     
-    public var buttonImage:UIImage? = nil {
+    @objc public var buttonImage:UIImage? = nil {
         didSet {
             if let _ = buttonImage {
                 floatButtonView.image = buttonImage
@@ -49,7 +49,7 @@ public class IBotChatButton: UIView {
         }
     }
     
-    var isShowing:Bool = false {
+    @objc var isShowing:Bool = false {
         didSet {
             self.isHidden = !isShowing
             
@@ -88,15 +88,15 @@ public class IBotChatButton: UIView {
     
     private var animationType:IBAnimationType = .slideLeftToRight
     
-    open var openInModal:Bool = true
-    open var canDrag:Bool = true
-    open var buttonBgroundColor:UIColor = UIColor.init(r: 41, g: 61, b: 124) {
+    @objc open var openInModal:Bool = true
+    @objc open var canDrag:Bool = true
+    @objc open var buttonBackgroundColor:UIColor = UIColor.init(r: 41, g: 61, b: 124) {
         didSet {
-            floatButtonView.backgroundColor = buttonBgroundColor
+            floatButtonView.backgroundColor = buttonBackgroundColor
         }
     }
     
-    public var apiKey:String = "" {
+    @objc public var apiKey:String = "" {
         didSet {
             if apiKey.isEmpty {
                 chatbotUrl = ""
@@ -204,7 +204,7 @@ public class IBotChatButton: UIView {
     
     
     
-    override public var isHidden: Bool {
+    @objc override public var isHidden: Bool {
         didSet {
             if !isShowing && isHidden == false {
                 self.isHidden = true
@@ -217,13 +217,13 @@ public class IBotChatButton: UIView {
     private var floatButtonView: UIImageView = UIImageView.init(frame: .zero)
     private var topBubbleView: UIImageView = UIImageView.init(frame: .zero)
     private var subMessageView: UIView = UIView.init(frame: .zero)
-    private var messageLabel: MarqueeLabel = MarqueeLabel.init(frame: .zero)
+    private var messageLabel: IBMarqueeLabel = IBMarqueeLabel.init(frame: .zero)
     private var closeButton: UIButton = UIButton.init(frame: .zero)
     
     private var buttonShadowView: UIView = UIView.init(frame: .zero)
     private var rootViewShadow: UIView = UIView.init(frame: .zero)
     
-    public static var isAnimated:Bool = false
+    @objc public static var isAnimated:Bool = false
     private var maximumWidth:CGFloat = 200.0
     
     private var isLeftSide:Bool = false
@@ -321,7 +321,7 @@ public class IBotChatButton: UIView {
         floatButtonView.frame = self.bounds
         floatButtonView.layer.masksToBounds = true
         floatButtonView.layer.cornerRadius = (self.bounds.height < self.bounds.width ? self.bounds.height : self.bounds.width) / 2.0
-        floatButtonView.backgroundColor = buttonBgroundColor
+        floatButtonView.backgroundColor = buttonBackgroundColor
         
         let bubbleWidth = (floatButtonView.frame.width * 95.0) / 141.0
         let bubbleHeight = bubbleWidth * (76.0 / 83.0)
