@@ -10,13 +10,21 @@
 
 @interface ObjCViewController ()
 
+@property (readwrite) BOOL isAdded;
+
 @end
 
 @implementation ObjCViewController
 
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _isAdded = false;
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -24,17 +32,22 @@
     [self showIBotButton];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
 
 
 - (void)showIBotButton {
-    IBotChatButton *button = [[IBotSDK shared] showIBotButtonIn:[self view] apiKey:@"YOUR_API_KEY"];    
+    if (!_isAdded) {
+        _isAdded = true;
+
+        IBotChatButton *button = [[IBotSDK shared] showIBotButtonIn:[self view] apiKey:@"YOUR_API_KEY"];
+        button.openInModal = false;
+        button.canDrag = true;
+        button.buttonBackgroundColor = UIColor.whiteColor;
+    }
     
-    button.openInModal = false;
-    button.canDrag = true;
-    button.buttonBackgroundColor = UIColor.whiteColor;    
 }
 
 

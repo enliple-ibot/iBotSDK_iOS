@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <iBotSDK/iBotSDK-Swift.h>
+#import <iBotSDK.h>
 
 @interface ObjCViewController : UIViewController
 

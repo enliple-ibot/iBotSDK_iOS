@@ -35,6 +35,15 @@ import iBotSDK
 IBotSDK.shared.showIBotButton(in: self.view, apiKey:'YOUR_API_KEY')
 ```
 
+```objective-c
+#import <iBotSDK.h>
+
+[[IBotSDK shared] showIBotButtonIn:[self view] apiKey:@"YOUR_API_KEY"];
+```
+
+
+
+
 ### Edit IBotChatButton
 
 ```swift
@@ -53,6 +62,24 @@ button.canDrag = true
 
 // change button default background color
 button.buttonBackgroundColor = .white
+
+```
+
+```objective-c
+
+IBotChatButton *button = [[IBotSDK shared] showIBotButtonIn:[self view] apiKey:@"YOUR_API_KEY"];    
+
+// change position
+button.center = CGPointMake(button.center.x, button.center.y - 50);
+
+// open in navigation viewcontroller
+button.openInModal = false;
+
+// dragging
+button.canDrag = true;
+
+// change button default background color
+button.buttonBackgroundColor = UIColor.whiteColor;
 
 ```
 
