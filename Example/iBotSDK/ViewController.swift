@@ -14,7 +14,7 @@ import iBotSDK
 
 class ViewController: UIViewController {
     
-    private var apiKey:String = "YOUR_API_KEY"
+    private var apiKey:String = "YOUR_APIKEY"
     
     @IBOutlet weak var openTypeSegment: UISegmentedControl!
     @IBOutlet weak var positionSegment: UISegmentedControl!
@@ -63,7 +63,9 @@ class ViewController: UIViewController {
                 button.openInModal = false
             }
             button.canDrag = (dragSegment.selectedSegmentIndex == 1)
-            
+            if button.canDrag {
+                button.canDragX = true
+            }
             
             chatButton = button
         }

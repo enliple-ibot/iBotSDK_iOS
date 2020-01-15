@@ -90,6 +90,8 @@ import UIKit
     
     @objc open var openInModal:Bool = true
     @objc open var canDrag:Bool = true
+    @objc open var canDragX:Bool = true
+    
     @objc open var buttonBackgroundColor:UIColor = UIColor.init(r: 41, g: 61, b: 124) {
         didSet {
             floatButtonView.backgroundColor = buttonBackgroundColor
@@ -415,6 +417,9 @@ import UIKit
             let translation = gesture.translation(in: parent)
             
             var movedCenterY = self.center.y + translation.y
+            var modecCenterX = self.center.x
+            
+            
             if movedCenterY > (parent.frame.height - self.frame.height / 2.0) - 10 {
                movedCenterY = (parent.frame.height - self.frame.height / 2.0) - 10
             }
@@ -422,7 +427,18 @@ import UIKit
                movedCenterY = (self.frame.height / 2.0) + 10 
             }
             
-            self.center = CGPoint(x: self.center.x, y: movedCenterY)
+            
+            if canDragX {
+                modecCenterX = self.center.x + translation.x
+                if modecCenterX > (parent.frame.width - self.frame.width / 2.0) - 10 {
+                   modecCenterX = (parent.frame.width - self.frame.width / 2.0) - 10
+                }
+                else if modecCenterX < (self.frame.width / 2.0 + 10) {
+                   modecCenterX = (self.frame.width / 2.0) + 10 
+                }
+            }
+            
+            self.center = CGPoint(x: modecCenterX, y: movedCenterY)
             gesture.setTranslation(CGPoint.zero, in: parent)
         }
         
