@@ -52,7 +52,7 @@ class IBWebViewController: UIViewController {
         wkWebView.scrollView.isScrollEnabled = false
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
-        
+        wkWebView.configuration.websiteDataStore = WKWebsiteDataStore.default()
         
         if let url = URL.init(string: loadUrl) {
             isFirstLoadingFinish = false
