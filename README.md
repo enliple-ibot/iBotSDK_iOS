@@ -20,6 +20,12 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'iBotSDK'
+
+or
+
+pod 'iBotSDK', '~> 1.5.0'
+
+
 ```
 
 ## Usage
