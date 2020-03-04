@@ -396,14 +396,9 @@ import UIKit
                         DispatchQueue.main.async {
                             self.subMessageView.alpha = 0.0
                             
-                            if (rootViewController is UINavigationController) && self.openInModal == false {
-                                IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: true)
-                            }
-                            else {
-                                IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl)
-                            }
+                            let isPush = ((rootViewController is UINavigationController) && self.openInModal == false) 
+                            IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: isPush)
                         }
-                        
                     }
                 }
                 

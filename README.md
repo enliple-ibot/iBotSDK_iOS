@@ -63,6 +63,10 @@ button.canDrag = true
 // change button default background color
 button.buttonBackgroundColor = .white
 
+
+// open directly
+IBotSDK.shared.showChatbot(parent: self, apiKey: 'YOUR_API_KEY', openInModal: false)
+
 ```
 
 ```objective-c
@@ -80,6 +84,7 @@ button.canDrag = true;
 
 // change button default background color
 button.buttonBackgroundColor = UIColor.whiteColor;
+
 
 ```
 

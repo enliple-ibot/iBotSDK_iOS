@@ -57,6 +57,9 @@ class ViewController: UIViewController {
         if openType == 2 {
             chatButton = makeCustomButton()
         }
+        else if openType == 3 {
+            chatButton = makeDirectButton()
+        }
         else {
             let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey: apiKey)
             if openType == 1 {
@@ -108,7 +111,8 @@ class ViewController: UIViewController {
                                                       y: parentBound.height - (buttonSize + bottomPadding + 10.0),
                                                       width: buttonSize,
                                                       height: buttonSize))
-        
+        button.setTitle("웹으로보기", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
         button.backgroundColor = .cyan
         button.layer.cornerRadius = buttonSize / 2.0
         button.layer.masksToBounds = true
@@ -122,6 +126,42 @@ class ViewController: UIViewController {
         IBotSDK.shared.showChatbotInBrowser(apiKey: apiKey)
     }
     
+    
+    
+    func makeDirectButton() -> UIButton {
+        let parentBound = self.view.bounds
+        
+        var bottomPadding:CGFloat = 0.0
+        
+        if let window = UIApplication.shared.keyWindow {
+            bottomPadding = window.safeAreaInsets.bottom
+        }
+        else if UIApplication.shared.windows.count > 0 {
+            bottomPadding = UIApplication.shared.windows[0].safeAreaInsets.bottom
+        }
+        
+        let buttonSize:CGFloat = 60.0
+        let button = UIButton.init(frame: CGRect.init(x: parentBound.width - (buttonSize + 10.0),
+                                                      y: parentBound.height - (buttonSize + bottomPadding + 10.0),
+                                                      width: buttonSize,
+                                                      height: buttonSize))
+        
+        button.setTitle("바로보기", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
+        
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = buttonSize / 2.0
+        button.layer.masksToBounds = true
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(openDirectly), for: .touchUpInside)
+         
+        return button   
+    }
+    
+    
+    @objc func openDirectly(_ sender: Any) {
+        IBotSDK.shared.showChatbot(parent: self, apiKey: apiKey, openInModal: false)
+    }
 }
 
 
