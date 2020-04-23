@@ -14,12 +14,10 @@ class IBWebViewController: UIViewController {
     fileprivate let jsMethodClose:String = "onAppViewClose"
     
     
-    
     var createWebView: WKWebView?
     private weak var lastPresentedController : UIViewController?
     
-    deinit {
-    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -41,9 +39,12 @@ class IBWebViewController: UIViewController {
     
     var loadUrl:String = ""
     var isFirstLoadingFinish:Bool = false
+    var isFinished:Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearCache()
         
         wkWebView.uiDelegate = self
         wkWebView.navigationDelegate = self
@@ -54,18 +55,38 @@ class IBWebViewController: UIViewController {
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
         wkWebView.configuration.websiteDataStore = WKWebsiteDataStore.default()
         
-        if let url = URL.init(string: loadUrl) {
-            isFirstLoadingFinish = false
-            
-            wkWebView.load(URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 15.0))
-        }
+        wkWebView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+        
+        loadChatBotUrl()
         
         registKeyboardNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        updateBackgroundColor()
     }
+    
+    
+    func updateBackgroundColor() {
+        var statusBarStyle:UIStatusBarStyle = .default
+        
+        if let navigation = self.navigationController {
+            statusBarStyle = navigation.preferredStatusBarStyle 
+        }
+        else {
+            statusBarStyle = self.presentingViewController?.preferredStatusBarStyle ?? .default
+        }
+        
+        if statusBarStyle == .lightContent {
+            self.view.backgroundColor = .black
+        }
+        else {
+            self.view.backgroundColor = .white
+        }
+    }
+    
+    
 
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -83,9 +104,25 @@ class IBWebViewController: UIViewController {
     }
     
     @IBAction func clickedBackButton(_ sender: Any) {
+        self.isFinished = true
         self.ibDismiss(naviBarShow: willShowNavigationBarWhenDismiss)
     }
     
+    
+    func loadChatBotUrl() {
+        if let url = URL.init(string: loadUrl) {
+            isFirstLoadingFinish = false
+            wkWebView.load(URLRequest.init(url: url))
+//            wkWebView.load(URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 15))
+        }
+    }
+    
+    
+    func clearCache() {
+        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
+        let date = Date(timeIntervalSince1970: 0)
+        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date, completionHandler:{ })
+    }
 }
 
 
@@ -100,6 +137,7 @@ extension IBWebViewController: WKScriptMessageHandler {
             print("message body : \(messageBody)")
             
             if message.body as! String == jsMethodClose {
+                self.isFinished = true
                 self.ibDismiss(naviBarShow: willShowNavigationBarWhenDismiss)
             }
         }
@@ -131,7 +169,26 @@ extension IBWebViewController: WKUIDelegate {
 
 extension IBWebViewController: WKNavigationDelegate {
     
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+//        webView.stopLoading()
+//        
+//        let alert:UIAlertController = UIAlertController.init(title: "알림", message: "아이봇 채팅창을 불러오는데 실패했습니다.", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction.init(title: "돌아가기", style: .cancel, handler: { (action) in
+//            self.isFinished = true
+//            self.ibDismiss(naviBarShow: self.willShowNavigationBarWhenDismiss)
+//        }))
+//        alert.addAction(UIAlertAction.init(title: "재시도", style: .default, handler: { (action) in
+//            self.loadChatBotUrl()
+//        }))
+//        
+//        present(alert, animated: true, completion: nil)
+    }
+    
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("loading finish : \(webView.url)")
+        
         if !isFirstLoadingFinish {
             isFirstLoadingFinish = true
             getUidFromCookie()
@@ -151,7 +208,7 @@ extension IBWebViewController: WKNavigationDelegate {
                     }
                 }
                 
-                if uid.isEmpty {
+                if uid.isEmpty && !self.isFinished {
                     print("try again-----")
                     self.getUidFromCookie()
                 }
@@ -164,6 +221,12 @@ extension IBWebViewController: WKNavigationDelegate {
     }
     
     
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if (keyPath == "estimatedProgress") {
+//            progressView.setProgress(Float(webView.estimatedProgress), animated: true)
+            print(wkWebView.estimatedProgress)
+        }
+    }
 }
 
 

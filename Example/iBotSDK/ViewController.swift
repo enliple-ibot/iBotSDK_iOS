@@ -14,17 +14,15 @@ import iBotSDK
 
 class ViewController: UIViewController {
     
-    private var apiKey:String = "YOUR_APIKEY"
+//    private var apiKey:String = "YOUR_APIKEY"
+//    private var apiKey:String = "202"
+    private var apiKey:String = "205"
     
     @IBOutlet weak var openTypeSegment: UISegmentedControl!
     @IBOutlet weak var positionSegment: UISegmentedControl!
     @IBOutlet weak var dragSegment: UISegmentedControl!
     
-    
-    
-    
     var chatButton:UIView? = nil
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
