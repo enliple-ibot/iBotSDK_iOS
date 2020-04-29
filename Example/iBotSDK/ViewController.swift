@@ -14,9 +14,7 @@ import iBotSDK
 
 class ViewController: UIViewController {
     
-//    private var apiKey:String = "YOUR_APIKEY"
-//    private var apiKey:String = "202"
-    private var apiKey:String = "205"
+    private var apiKey:String = "YOUR_APIKEY"
     
     @IBOutlet weak var openTypeSegment: UISegmentedControl!
     @IBOutlet weak var positionSegment: UISegmentedControl!
@@ -27,8 +25,6 @@ class ViewController: UIViewController {
     
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
-//        return .lightContent
-//        return .darkContent
     }
     
     
