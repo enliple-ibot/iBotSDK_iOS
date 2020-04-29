@@ -17,6 +17,15 @@ class IBWebViewController: UIViewController {
     var createWebView: WKWebView?
     private weak var lastPresentedController : UIViewController?
     
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .default
+        if let navigation = self.navigationController {
+            return navigation.preferredStatusBarStyle 
+        }
+        else {
+            return self.presentingViewController?.preferredStatusBarStyle ?? .default
+        }
+    }
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -60,10 +69,12 @@ class IBWebViewController: UIViewController {
         loadChatBotUrl()
         
         registKeyboardNotifications()
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setNeedsStatusBarAppearanceUpdate()
         updateBackgroundColor()
     }
     

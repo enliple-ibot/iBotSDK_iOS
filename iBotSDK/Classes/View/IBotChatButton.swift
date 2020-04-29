@@ -386,7 +386,13 @@ import UIKit
     @objc func excuteTapGesture(gesture:UITapGestureRecognizer) {
 
         if gesture.view == floatButtonView {
-            if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+            var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+            if rootViewController is UINavigationController {
+                rootViewController = (rootViewController as? UINavigationController)?.topViewController 
+            }
+            
+            
+            if let rootViewController = rootViewController {
                 
                 IBApi.shared.checkIbotAlive(apiKey: apiKey) { (result, error) in
                     if let json = result, ((json["result"] as? String)?.uppercased() == "TRUE" || (json["result"] as? Bool) == true) {
@@ -396,7 +402,7 @@ import UIKit
                         DispatchQueue.main.async {
                             self.subMessageView.alpha = 0.0
                             
-                            let isPush = ((rootViewController is UINavigationController) && self.openInModal == false) 
+                            let isPush = ((rootViewController.navigationController != nil) && self.openInModal == false) 
                             IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: isPush)
                         }
                     }

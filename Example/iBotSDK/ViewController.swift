@@ -24,12 +24,21 @@ class ViewController: UIViewController {
     
     var chatButton:UIView? = nil
     
+    
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+//        return .lightContent
+//        return .darkContent
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +47,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     

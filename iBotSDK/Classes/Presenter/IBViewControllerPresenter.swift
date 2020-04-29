@@ -25,7 +25,6 @@ class IBViewControllerPresenter {
         }
         vc.willShowNavigationBarWhenDismiss = !(navigation?.isNavigationBarHidden ?? true)
         
-        
         parent.ibPresent(vc: vc, isPush: isPush, animated: animated, completion: completion)
     }
 }

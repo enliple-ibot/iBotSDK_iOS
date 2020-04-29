@@ -14,5 +14,8 @@ extension UINavigationController {
     
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
+//        return .lightContent
+//        return .darkContent
     }
+    
 }
