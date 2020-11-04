@@ -14,7 +14,7 @@ import iBotSDK
 
 class ViewController: UIViewController {
     
-    private var apiKey:String = "YOUR_APIKEY"
+    private var apiKey:String = "2"
     
     @IBOutlet weak var openTypeSegment: UISegmentedControl!
     @IBOutlet weak var positionSegment: UISegmentedControl!

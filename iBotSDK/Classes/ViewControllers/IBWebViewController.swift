@@ -63,6 +63,21 @@ class IBWebViewController: UIViewController {
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
         wkWebView.configuration.websiteDataStore = WKWebsiteDataStore.default()
+//
+//        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
+//        let date = Date(timeIntervalSince1970: 0)
+//        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date, completionHandler:{ })
+//
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                #if DEBUG
+                    print("WKWebsiteDataStore record deleted:", record)
+                #endif
+            }
+        }
+        
         
         wkWebView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         
