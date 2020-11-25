@@ -88,6 +88,9 @@ import UIKit
     
     private var animationType:IBAnimationType = .slideLeftToRight
     
+    
+    @objc public var callback:IBotSDKCallback? = nil
+    
     @objc open var openInModal:Bool = true
     @objc open var canDrag:Bool = true
     @objc open var canDragX:Bool = true
@@ -403,7 +406,7 @@ import UIKit
                             self.subMessageView.alpha = 0.0
                             
                             let isPush = ((rootViewController.navigationController != nil) && self.openInModal == false) 
-                            IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: isPush)
+                            IBViewControllerPresenter.shared.showWebViewController(parent: rootViewController, url: showingUrl, isPush: isPush, callback: self.callback)
                         }
                     }
                 }

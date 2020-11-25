@@ -41,10 +41,12 @@
 - (void)showIBotButton {
     if (!_isAdded) {
         _isAdded = true;
-
-        IBotChatButton *button = [[IBotSDK shared] showIBotButtonIn:[self view] apiKey:@"YOUR_API_KEY"];
+        
+        IBotChatButton *button = [[IBotSDK shared] showIBotButtonIn:[self view] apiKey:@"YOUR_API_KEY" callback:nil];
+        
         button.openInModal = false;
         button.canDrag = true;
+        
         button.buttonBackgroundColor = UIColor.whiteColor;
     }
     

@@ -11,10 +11,11 @@ import Foundation
 class IBViewControllerPresenter {
     public static let shared: IBViewControllerPresenter = IBViewControllerPresenter()
     
-    func showWebViewController(parent:UIViewController, url:String, isPush:Bool = false, animated:Bool = true, completion: (() -> Void)? = nil) {
+    func showWebViewController(parent:UIViewController, url:String, isPush:Bool = false, animated:Bool = true, callback:IBotSDKCallback? = nil, completion: (() -> Void)? = nil) {
         let vc = IBWebViewController.init(url:url)
         vc.loadUrl = url
         vc.modalPresentationStyle = .overFullScreen
+        vc.callback = callback
         
         var navigation:UINavigationController? = nil
         if parent is UINavigationController {

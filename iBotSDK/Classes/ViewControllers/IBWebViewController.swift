@@ -10,12 +10,14 @@ import WebKit
 
 class IBWebViewController: UIViewController {
 
-    fileprivate let jsHandlerName:String = "iBotAppHandler"
-    fileprivate let jsMethodClose:String = "onAppViewClose"
-    
+    fileprivate let jsHandlerName:String                = "iBotAppHandler"
+    fileprivate let jsMethodClose:String                = "onAppViewClose"
+    fileprivate let jsMethodExcuteIBOTMessage:String    = "onAppSend"
     
     var createWebView: WKWebView?
     private weak var lastPresentedController : UIViewController?
+    
+    var callback:IBotSDKCallback? = nil
     
     override open var preferredStatusBarStyle: UIStatusBarStyle {
 //        return .default
@@ -159,13 +161,33 @@ extension IBWebViewController: WKScriptMessageHandler {
         print("WebView-ScriptMessage : [name : \(message.name)], [body : \(message.body)]")
         
         if message.name == jsHandlerName {
-            let messageBody = message.body as! String
-            print("message body : \(messageBody)")
-            
-            if message.body as! String == jsMethodClose {
-                self.isFinished = true
-                self.ibDismiss(naviBarShow: willShowNavigationBarWhenDismiss)
+            if let messageBody = message.body as? String {
+                
+                switch messageBody {
+                case jsMethodClose:
+                    self.isFinished = true
+                    self.ibDismiss(naviBarShow: willShowNavigationBarWhenDismiss)
+                    break
+                    
+                default:
+                    break
+                }
             }
+            else if let dictionaryBody = message.body as? Dictionary<String, Any> {
+                
+                let action = dictionaryBody["action"] as? String ?? "";
+                let body = dictionaryBody["body"] as? String ?? "";
+                
+                switch action {
+                case jsMethodExcuteIBOTMessage:
+                    callback?(body)
+                    break
+                    
+                default:
+                    break
+                }
+            }
+            
         }
     }
 }

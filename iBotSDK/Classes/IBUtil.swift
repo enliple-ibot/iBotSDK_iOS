@@ -51,4 +51,20 @@ class IBUtil {
     }
     
     
+    func jsonStringToDictionary(jsonString: String) -> Dictionary<String, Any> {
+        
+        do {
+            guard let data = jsonString.data(using: .utf8),
+                  let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? Dictionary<String, Any> else {
+                return Dictionary.init()
+            }
+            
+            return json
+        }
+        catch {
+            return Dictionary.init()
+        }
+        
+    }
+    
 }

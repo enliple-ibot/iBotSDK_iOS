@@ -5,6 +5,10 @@
 //  Created by enliple on 16/10/2019.
 //
 
+
+public typealias IBotSDKCallback = (_ messageInfo:String) -> Void
+
+
 @objc public class IBotSDK: NSObject {
     
     @objc public static let shared: IBotSDK = IBotSDK()
@@ -20,7 +24,7 @@
     
     - returns 생성된 ibot 버튼을 반환 합니다.
     */
-    @objc public func showIBotButton(in parent:UIView, apiKey:String) -> IBotChatButton {
+    @objc public func showIBotButton(in parent:UIView, apiKey:String, callback:IBotSDKCallback? = nil) -> IBotChatButton {
         let parentBound = parent.bounds
  
         var bottomPadding:CGFloat = 0.0
@@ -41,6 +45,8 @@
         IBotChatButton.isAnimated = false
         button.expandableViewShowing = true
         button.isShowing = false
+        button.callback = callback
+        
         
         parent.addSubview(button)
         
@@ -87,7 +93,7 @@
      - parameter openInModal: 부모뷰가 NavigationController를 사용하는지 여부에 상관없이 modal로 열고자 하는 경우 true로 설정하면 됩니다. 기본값은 false 입니다.
      
      */
-    @objc public func showChatbot(parent:UIViewController, apiKey:String, openInModal:Bool = false) {
+    @objc public func showChatbot(parent:UIViewController, apiKey:String, openInModal:Bool = false, callback:IBotSDKCallback? = nil) {
         IBApi.shared.getIBotInfo(apiKey: apiKey, completionHandler: { (jsonDict, error) in
             if let json = jsonDict {
                 let chatbotUrl = json["url"] as? String ?? ""
@@ -101,7 +107,7 @@
                             DispatchQueue.main.async {
                                 let pVC = parent.navigationController ?? parent
                                 let isPush = ((pVC is UINavigationController) && openInModal == false)
-                                IBViewControllerPresenter.shared.showWebViewController(parent: pVC, url: showingUrl, isPush: isPush)
+                                IBViewControllerPresenter.shared.showWebViewController(parent: pVC, url: showingUrl, isPush: isPush, callback: callback)
                             }
                         }
                     }

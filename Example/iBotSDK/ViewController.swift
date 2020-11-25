@@ -73,8 +73,8 @@ class ViewController: UIViewController {
             if button.canDrag {
                 button.canDragX = true
             }
-            
             chatButton = button
+            
         }
         
         
