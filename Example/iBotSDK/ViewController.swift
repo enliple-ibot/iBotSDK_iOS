@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         
         var bottomPadding:CGFloat = 0.0
         
-        if let window = UIApplication.shared.keyWindow {
+        if let window = UIApplication.shared.windows.first {
             bottomPadding = window.safeAreaInsets.bottom
         }
         else if UIApplication.shared.windows.count > 0 {
@@ -137,7 +137,7 @@ class ViewController: UIViewController {
         
         var bottomPadding:CGFloat = 0.0
         
-        if let window = UIApplication.shared.keyWindow {
+        if let window = UIApplication.shared.windows.first {
             bottomPadding = window.safeAreaInsets.bottom
         }
         else if UIApplication.shared.windows.count > 0 {

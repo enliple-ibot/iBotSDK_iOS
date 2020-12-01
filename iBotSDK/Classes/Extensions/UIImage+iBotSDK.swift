@@ -9,14 +9,14 @@ import UIKit
 import ImageIO
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 
@@ -33,12 +33,12 @@ extension UIImage {
     }
     
     public class func gifImageWithURL(_ gifUrl:String) -> UIImage? {
-        guard let bundleURL:URL? = URL(string: gifUrl)
-            else {
-                print("image named \"\(gifUrl)\" doesn't exist")
-                return nil
+        guard let bundleURL:URL = URL(string: gifUrl) else {
+            print("image named \"\(gifUrl)\" doesn't exist")
+            return nil
         }
-        guard let imageData = try? Data(contentsOf: bundleURL!) else {
+        
+        guard let imageData = try? Data(contentsOf: bundleURL) else {
             print("image named \"\(gifUrl)\" into NSData")
             return nil
         }
@@ -47,11 +47,11 @@ extension UIImage {
     }
     
     public class func gifImageWithName(_ name: String) -> UIImage? {
-        guard let bundleURL = Bundle.main
-            .url(forResource: name, withExtension: "gif") else {
-                print("SwiftGif: This image named \"\(name)\" does not exist")
-                return nil
+        guard let bundleURL = Bundle.main.url(forResource: name, withExtension: "gif") else {
+            print("SwiftGif: This image named \"\(name)\" does not exist")
+            return nil
         }
+        
         guard let imageData = try? Data(contentsOf: bundleURL) else {
             print("SwiftGif: Cannot turn image named \"\(name)\" into NSData")
             return nil
@@ -64,18 +64,13 @@ extension UIImage {
         var delay = 0.1
         
         let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
-        let gifProperties: CFDictionary = unsafeBitCast(
-            CFDictionaryGetValue(cfProperties,
-                Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
-            to: CFDictionary.self)
+        let gifProperties: CFDictionary = unsafeBitCast(CFDictionaryGetValue(cfProperties, Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
+                                                        to: CFDictionary.self)
         
-        var delayObject: AnyObject = unsafeBitCast(
-            CFDictionaryGetValue(gifProperties,
-                Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
-            to: AnyObject.self)
+        var delayObject: AnyObject = unsafeBitCast(CFDictionaryGetValue(gifProperties, Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
+                                                   to: AnyObject.self)
         if delayObject.doubleValue == 0 {
-            delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
-                Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
+            delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties, Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
         }
         
         delay = delayObject as! Double
@@ -143,8 +138,7 @@ extension UIImage {
                 images.append(image)
             }
             
-            let delaySeconds = UIImage.delayForImageAtIndex(Int(i),
-                source: source)
+            let delaySeconds = UIImage.delayForImageAtIndex(Int(i), source: source)
             delays.append(Int(delaySeconds * 1000.0)) // Seconds to ms
         }
         
@@ -172,8 +166,7 @@ extension UIImage {
             }
         }
         
-        let animation = UIImage.animatedImage(with: frames,
-            duration: Double(duration) / 1000.0)
+        let animation = UIImage.animatedImage(with: frames, duration: Double(duration) / 1000.0)
         
         return animation
     }

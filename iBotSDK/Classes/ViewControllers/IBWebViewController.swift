@@ -215,27 +215,10 @@ extension IBWebViewController: WKUIDelegate {
 }
 
 
-extension IBWebViewController: WKNavigationDelegate {
-    
-    
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-//        webView.stopLoading()
-//        
-//        let alert:UIAlertController = UIAlertController.init(title: "알림", message: "아이봇 채팅창을 불러오는데 실패했습니다.", preferredStyle: .alert)
-//        alert.addAction(UIAlertAction.init(title: "돌아가기", style: .cancel, handler: { (action) in
-//            self.isFinished = true
-//            self.ibDismiss(naviBarShow: self.willShowNavigationBarWhenDismiss)
-//        }))
-//        alert.addAction(UIAlertAction.init(title: "재시도", style: .default, handler: { (action) in
-//            self.loadChatBotUrl()
-//        }))
-//        
-//        present(alert, animated: true, completion: nil)
-    }
-    
+extension IBWebViewController: WKNavigationDelegate {    
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("loading finish : \(webView.url)")
+        print("loading finish : \(webView.url?.absoluteString ?? "unknown url...")")
         
         if !isFirstLoadingFinish {
             isFirstLoadingFinish = true
@@ -324,8 +307,7 @@ extension IBWebViewController {
                                                                                   y: self.wkWebView.scrollView.contentSize.height-(self.wkWebView.frame.height), 
                                                                                   width: self.wkWebView.frame.width,
                                                                                   height: self.wkWebView.frame.height - changeInHeight),
-                                    
-                        animated: false)
+                                                                      animated: false)
                     }
                 }
             }
@@ -338,8 +320,7 @@ extension IBWebViewController {
                                                                                   y: self.wkWebView.scrollView.contentSize.height-self.wkWebView.frame.height, 
                                                                                   width: self.wkWebView.frame.width,
                                                                                   height: self.wkWebView.frame.height),
-                                    
-                        animated: false)
+                                                                      animated: false)
                     }
                 }
             }
