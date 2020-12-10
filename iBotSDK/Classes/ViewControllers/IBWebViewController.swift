@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class IBWebViewController: UIViewController {
+@objc public class IBWebViewController: UIViewController {
 
     fileprivate let jsHandlerName:String                = "iBotAppHandler"
     fileprivate let jsMethodClose:String                = "onAppViewClose"
@@ -53,7 +53,7 @@ class IBWebViewController: UIViewController {
     var isFinished:Bool = false
     
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         clearCache()
         
@@ -65,7 +65,7 @@ class IBWebViewController: UIViewController {
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
         wkWebView.configuration.websiteDataStore = WKWebsiteDataStore.default()
-//
+        
 //        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
 //        let date = Date(timeIntervalSince1970: 0)
 //        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date, completionHandler:{ })
@@ -89,7 +89,7 @@ class IBWebViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
         updateBackgroundColor()
@@ -115,9 +115,7 @@ class IBWebViewController: UIViewController {
     }
     
     
-
-    
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         
         if presentedViewController != nil && lastPresentedController != presentedViewController  {
             lastPresentedController = presentedViewController
@@ -157,7 +155,7 @@ class IBWebViewController: UIViewController {
 
 extension IBWebViewController: WKScriptMessageHandler {
     
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print("WebView-ScriptMessage : [name : \(message.name)], [body : \(message.body)]")
         
         if message.name == jsHandlerName {
@@ -180,7 +178,7 @@ extension IBWebViewController: WKScriptMessageHandler {
                 
                 switch action {
                 case jsMethodExcuteIBOTMessage:
-                    callback?(body)
+                    callback?(self, body)
                     break
                     
                 default:
@@ -252,7 +250,7 @@ extension IBWebViewController: WKNavigationDelegate {
     }
     
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if (keyPath == "estimatedProgress") {
 //            progressView.setProgress(Float(webView.estimatedProgress), animated: true)
             print(wkWebView.estimatedProgress)

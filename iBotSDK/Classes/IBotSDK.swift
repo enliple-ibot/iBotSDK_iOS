@@ -6,7 +6,7 @@
 //
 
 
-public typealias IBotSDKCallback = (_ messageInfo:String) -> Void
+public typealias IBotSDKCallback = (_ ibotViewController:IBWebViewController, _ messageInfo:String) -> Void
 
 
 @objc public class IBotSDK: NSObject {

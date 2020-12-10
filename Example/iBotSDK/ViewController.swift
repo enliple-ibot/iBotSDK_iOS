@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     
     var chatButton:UIView? = nil
     
+    var iBotSDKCallback: IBotSDKCallback?
+    
     
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
@@ -35,7 +37,28 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setNeedsStatusBarAppearanceUpdate()
+        
+        iBotSDKCallback = { ibotVC, command in
+            print("IBotSDK Callback Command : \(command)")
+            
+            if let _ = ibotVC.navigationController {
+                self.showCommandAlert(command)
+            }
+            else {
+                ibotVC.dismiss(animated: true) {
+                    self.showCommandAlert(command)
+                }
+            }
+            
+        }
     }
+    
+    private func showCommandAlert(_ command:String) {
+        let alert = UIAlertController.init(title: nil, message: "Excute Command : [\(command)]", preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: "확인", style: .default, handler:nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -65,7 +88,8 @@ class ViewController: UIViewController {
             chatButton = makeDirectButton()
         }
         else {
-            let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey: apiKey)
+            let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey: apiKey, callback: iBotSDKCallback)
+            
             if openType == 1 {
                 button.openInModal = false
             }
@@ -164,7 +188,7 @@ class ViewController: UIViewController {
     
     
     @objc func openDirectly(_ sender: Any) {
-        IBotSDK.shared.showChatbot(parent: self, apiKey: apiKey, openInModal: false)
+        IBotSDK.shared.showChatbot(parent: self, apiKey: apiKey, openInModal: false, callback: iBotSDKCallback)
     }
 }
 

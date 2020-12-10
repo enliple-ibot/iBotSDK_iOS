@@ -94,6 +94,26 @@ button.buttonBackgroundColor = UIColor.whiteColor;
 
 ```
 
+### Using Callback
+채팅창으로부터 메세지를 전달 받아서 직접 지정한 동작을 수행하고자 할때 정의하여 활용하면 됩니다.
+
+```swift
+
+IBotSDK.shared.showIBotButton(in: self.view, apiKey: @"YOUR_API_KEY") { (ibotVC, command) in
+
+    if let _ = ibotVC.navigationController {
+        self.showCommandAlert(command)
+    }
+    else {
+        ibotVC.dismiss(animated: true) {
+            self.showCommandAlert(command)
+        }
+    }
+}
+
+```
+
+
 
 ## Author
 

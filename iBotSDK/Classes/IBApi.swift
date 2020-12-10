@@ -14,7 +14,6 @@ class IBApi {
     
     let HOST = "https://chatapi.istore.camp"
     
-    
     let API_SDK_INIT = "/chat/initSdk"
     let API_CHECK_ISALIVE = "/chat/isAlivePackage"
     let API_SEND_DEVICEINFO = "/chat/chatSdkLog"
