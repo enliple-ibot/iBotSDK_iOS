@@ -14,7 +14,7 @@ import iBotSDK
 
 class ViewController: UIViewController {
     
-    private var apiKey:String = "2"
+    private var apiKey:String = "YOUR_APIKEY"
     
     @IBOutlet weak var openTypeSegment: UISegmentedControl!
     @IBOutlet weak var positionSegment: UISegmentedControl!
@@ -22,7 +22,18 @@ class ViewController: UIViewController {
     
     var chatButton:UIView? = nil
     
-    var iBotSDKCallback: IBotSDKCallback?
+    lazy var iBotSDKCallback: IBotSDKCallback = { ibotVC, command in
+        print("IBotSDK Callback Command : \(command)")
+        
+        if let _ = ibotVC.navigationController {
+            self.showCommandAlert(command)
+        }
+        else {
+            ibotVC.dismiss(animated: true) {
+                self.showCommandAlert(command)
+            }
+        }
+    }
     
     
     override open var preferredStatusBarStyle: UIStatusBarStyle {
@@ -37,20 +48,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setNeedsStatusBarAppearanceUpdate()
-        
-        iBotSDKCallback = { ibotVC, command in
-            print("IBotSDK Callback Command : \(command)")
-            
-            if let _ = ibotVC.navigationController {
-                self.showCommandAlert(command)
-            }
-            else {
-                ibotVC.dismiss(animated: true) {
-                    self.showCommandAlert(command)
-                }
-            }
-            
-        }
     }
     
     private func showCommandAlert(_ command:String) {
