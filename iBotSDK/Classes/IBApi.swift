@@ -12,7 +12,7 @@ typealias IBApiCallback = (_ result:[String: Any]?, _ error:Error?) -> Void
 class IBApi {
     let timeOutInterval:TimeInterval = 15
     
-    let HOST = " http://112.175.17.118:8880"
+    let HOST = "http://112.175.17.118:8880"
     
     let API_SDK_INIT = "/chat/initSdk"
     let API_CHECK_ISALIVE = "/chat/isAlivePackage"
