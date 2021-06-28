@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'iBotSDK'
-  s.version          = '1.8.0'
+  s.version          = '1.9.0'
   s.summary          = 'iBotSDK for iOS'
 
   
