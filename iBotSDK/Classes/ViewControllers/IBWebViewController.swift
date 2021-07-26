@@ -193,13 +193,14 @@ extension IBWebViewController: WKScriptMessageHandler {
 
 extension IBWebViewController: WKUIDelegate {
 
-    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+    public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if let url = navigationAction.request.url {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)    
         }
         
         return nil
     }
+    
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let urlScheme = navigationAction.request.url?.scheme ?? ""
@@ -215,7 +216,7 @@ extension IBWebViewController: WKUIDelegate {
 
 extension IBWebViewController: WKNavigationDelegate {    
     
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("loading finish : \(webView.url?.absoluteString ?? "unknown url...")")
         
         if !isFirstLoadingFinish {
