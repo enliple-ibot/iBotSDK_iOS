@@ -23,7 +23,7 @@ pod 'iBotSDK'
 
 or
 
-pod 'iBotSDK', '~> 1.8.0'
+pod 'iBotSDK', '~> 1.9.3'
 
 
 ```

@@ -70,15 +70,15 @@ import WebKit
 //        let date = Date(timeIntervalSince1970: 0)
 //        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date, completionHandler:{ })
 //
-        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            records.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-                #if DEBUG
-                    print("WKWebsiteDataStore record deleted:", record)
-                #endif
-            }
-        }
+//        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+//        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+//            records.forEach { record in
+//                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+//                #if DEBUG
+//                    print("WKWebsiteDataStore record deleted:", record)
+//                #endif
+//            }
+//        }
         
         
         wkWebView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
@@ -239,11 +239,11 @@ extension IBWebViewController: WKNavigationDelegate {
                 }
                 
                 if uid.isEmpty && !self.isFinished {
-                    print("try again-----")
+//                    print("try again-----")
                     self.getUidFromCookie()
                 }
                 else {
-                    print("uid : \(uid)")
+//                    print("uid : \(uid)")
                     IBApi.shared.sendDeviceInfo(uid: uid) { (result, error) in }
                 }
             }
