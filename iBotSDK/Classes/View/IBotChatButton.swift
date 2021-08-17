@@ -57,7 +57,7 @@ import UIKit
                 
                 IBViewAnimation.shared.animate(with: self, type: animationType) { (finish) in
                     self.showShadow { (finish) in
-                        if finish && !IBotChatButton.isAnimated{
+                        if !IBotChatButton.isAnimated {
                             IBotChatButton.isAnimated = true
                             
                             self.subMessageView.alpha = 0.0
@@ -510,14 +510,12 @@ import UIKit
             
             self.setNeedsDisplay()
         }) { (finish) in
-             if finish {
-                self.messageLabel.holdScrolling = false
-                self.messageLabel.restartLabel()
-                
-                Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { (t2) in
-                    self.messageLabel.holdScrolling = true
-                    self.hideSubMessageView()
-                }
+            self.messageLabel.holdScrolling = false
+            self.messageLabel.restartLabel()
+            
+            Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { (t2) in
+                self.messageLabel.holdScrolling = true
+                self.hideSubMessageView()
             }
         }
         
@@ -525,6 +523,7 @@ import UIKit
     
     public func hideSubMessageView() {
         if subMessageView.alpha <= 0.0 {
+            realHideSubMessageView()
             return
         }
         
@@ -556,8 +555,19 @@ import UIKit
             self.rootViewShadow.frame = self.bounds
             self.subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.frame.width, height: self.frame.height*0.8)
             self.buttonShadowView.frame = self.bounds
+            
         }) { (finish) in
+            self.realHideSubMessageView()
         }
+    }
+    
+    
+    private func realHideSubMessageView() {
+        self.subMessageView.alpha = 0.0
+        self.frame = self.defalutFrame
+        self.rootViewShadow.frame = self.bounds
+        self.subMessageView.frame = CGRect.init(x: 0, y: self.frame.height*0.1, width: self.frame.width, height: self.frame.height*0.8)
+        self.buttonShadowView.frame = self.bounds
     }
     
 }

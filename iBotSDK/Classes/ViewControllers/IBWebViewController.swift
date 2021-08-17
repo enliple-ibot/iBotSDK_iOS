@@ -64,8 +64,8 @@ import WebKit
         wkWebView.scrollView.isScrollEnabled = false
         
         wkWebView.configuration.userContentController.add(self, name: jsHandlerName)
-        wkWebView.configuration.websiteDataStore = WKWebsiteDataStore.default()
         
+//        wkWebView.configuration.websiteDataStore = WKWebsiteDataStore.default()
 //        let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
 //        let date = Date(timeIntervalSince1970: 0)
 //        WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date, completionHandler:{ })
@@ -254,7 +254,7 @@ extension IBWebViewController: WKNavigationDelegate {
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if (keyPath == "estimatedProgress") {
 //            progressView.setProgress(Float(webView.estimatedProgress), animated: true)
-            print(wkWebView.estimatedProgress)
+//            print(wkWebView.estimatedProgress)
         }
     }
 }
