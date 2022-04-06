@@ -114,6 +114,17 @@ IBotSDK.shared.showIBotButton(in: self.view, apiKey: @"YOUR_API_KEY") { (ibotVC,
 ```
 
 
+### Disable Animation
+챗봇 버튼 애니메이션 재생시 메세지가 노출되는 부분 제거시 showIBotButton()을 호출할때 아래와 같이 playAnimation값을 false로 전달하면 됩니다.
+
+```swift
+
+IBotSDK.shared.showIBotButton(in: self.view, apiKey: @"YOUR_API_KEY", playAnimation: false)
+
+```
+
+
+
 
 ## Author
 
