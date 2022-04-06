@@ -42,7 +42,7 @@
     if (!_isAdded) {
         _isAdded = true;
         
-        IBotChatButton *button = [[IBotSDK shared] showIBotButtonIn:[self view] apiKey:@"YOUR_API_KEY" callback:nil];
+        IBotChatButton *button = [[IBotSDK shared] showIBotButtonIn:[self view] apiKey:@"YOUR_API_KEY" playAnimation:YES callback:nil];
         
         button.openInModal = false;
         button.canDrag = true;

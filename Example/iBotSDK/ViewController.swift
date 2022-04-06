@@ -85,7 +85,7 @@ class ViewController: UIViewController {
             chatButton = makeDirectButton()
         }
         else {
-            let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey: apiKey, callback: iBotSDKCallback)
+            let button = IBotSDK.shared.showIBotButton(in: self.view, apiKey: apiKey, playAnimation: true, callback: iBotSDKCallback)
             
             if openType == 1 {
                 button.openInModal = false

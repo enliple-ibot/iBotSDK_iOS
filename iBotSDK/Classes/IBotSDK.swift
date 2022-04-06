@@ -24,7 +24,7 @@ public typealias IBotSDKCallback = (_ ibotViewController:IBWebViewController, _ 
     
     - returns 생성된 ibot 버튼을 반환 합니다.
     */
-    @objc public func showIBotButton(in parent:UIView, apiKey:String, callback:IBotSDKCallback? = nil) -> IBotChatButton {
+    @objc public func showIBotButton(in parent:UIView, apiKey:String, playAnimation:Bool = true, callback:IBotSDKCallback? = nil) -> IBotChatButton {
         let parentBound = parent.bounds
  
         var bottomPadding:CGFloat = 0.0
@@ -43,7 +43,7 @@ public typealias IBotSDKCallback = (_ ibotViewController:IBWebViewController, _ 
                                                                             height: buttonSize))
         button.isUserInteractionEnabled = true
         IBotChatButton.isAnimated = false
-        button.expandableViewShowing = true
+        button.expandableViewShowing = playAnimation
         button.isShowing = false
         button.callback = callback
         

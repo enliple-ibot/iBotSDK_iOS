@@ -71,6 +71,7 @@ import UIKit
         }
     }
     
+    
     private var textColor:UIColor = .white {
         didSet {
             self.messageLabel.textColor = textColor
