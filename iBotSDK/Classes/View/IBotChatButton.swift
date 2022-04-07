@@ -63,6 +63,9 @@ import UIKit
                             self.subMessageView.alpha = 0.0
                             self.showSubMessageView()
                         }
+                        else {
+                            self.realHideSubMessageView()
+                        }
                     }
                 }
                 
